@@ -1,0 +1,389 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+{% load l10n %}
+
+{% block title %} Detalle Orden Compra {% endblock title %}
+
+{% block head %}
+<!-- <link href="{% static 'assets/libs/mohithg-switchery/switchery.min.css' %}" rel="stylesheet" type="text/css" />
+<link href="{% static 'assets/libs/multiselect/css/multi-select.css' %}" rel="stylesheet" type="text/css" />
+<link href="{% static 'assets/libs/select2/css/select2.min.css' %}" rel="stylesheet" type="text/css" />
+<link href="{% static 'assets/libs/selectize/css/selectize.bootstrap3.css' %}" rel="stylesheet" type="text/css" />
+<link href="{% static 'assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css' %}" rel="stylesheet" type="text/css" /> -->
+
+<link href="{% static 'assets/libs/jquery-toast-plugin/jquery.toast.min.css' %}" rel="stylesheet" type="text/css" />
+{% endblock head %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box">
+            <div class="page-title-right">
+               
+            </div>
+            <h4 class="page-title">Detalle Orden Compra</h4> 
+        </div>
+    </div>
+</div>	
+
+<div id="app">
+    <div class="row">
+        <div class="col-md-12 mb-30">
+            <div class="card">
+                <div class="table-responsive">
+                    <table class="mb-0 table table-sm">
+                        <thead>
+                            <tr>
+                                <th>No.Factura</th>
+                                <th>Fecha Factura</th>
+                                <th>Proveedor</th>
+                                <th>Cantidad</th>
+                                <!-- <th>Subtotal</th> -->
+                                <th>Total</th>
+                                
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>${ ov.id }</td>
+                                <td>${ ov.fecha_factura }</td>
+                                <td>${ ov.proveedor }</td>
+                                <td><h4><b>${ ov.cantidad }</b></h4></td>
+                                <!-- <td>${ ov.subtotal }</td> -->
+                                <td><h4><b>$ ${ ov.total }</b></h4></td>
+                                
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+
+                        <div class="col-lg-4">
+                            <div class="border p-3 mt-4 mt-lg-0 rounded">
+                                <h4 class="header-title mb-3 text-center">${ lb_producto }</h4>
+                        
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="mb-2">
+                                            <input :disabled="disabled" required type="text" class="form-control" v-model="buscar_componente"
+                                                placeholder="Buscar Producto...">
+                                            <input type="hidden" v-model="item.producto">
+                                            <div style="z-index: 1; position: absolute;">
+                                                <ul class="list-group">
+                                                    <button v-for="producto in componentes"
+                                                        @click="seleccionarProducto(producto.id,producto.codigo,producto.descripcion)"
+                                                        type="button" class="list-group-item list-group-item-action">
+                                                        ${ producto.codigo } - ${ producto.descripcion }
+                                                    </button>
+                                                </ul>
+                                            </div>
+                        
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="input-group mb-2">
+                                            <span class="input-group-text" id="basic-addon1">Cantidad</span>
+                                
+                                            <!-- <input  data-toggle="touchspin" value="1" type="text" data-step="1"> -->
+                                            <input v-model="item.cantidad" type="number" min="1" value="1" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="input-group mb-2">
+                                            <span class="input-group-text" id="basic-addon1">Costo</span>
+                                
+                                            <!-- <input  data-toggle="touchspin" value="0.00" type="text" data-step="0.1" data-decimals="2"> -->
+                                            <input v-model="item.costo" type="number" step="0.01" min="0.00" value="0.00" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="mb-2">
+                                            <div class="text-center">
+                                                
+                                                <button v-if="!showAdd & !loading" type="button" @click="EditarProducto()"
+                                                    class="btn btn-primary waves-effect waves-light rounded-pill"><i class="fas fa-save"></i>
+                                                    Guardar</button>
+                                                <button v-if="!showAdd  & !loading" type="button" @click="cancelar()"
+                                                    class="btn btn-danger waves-effect waves-light rounded-pill">
+                                                    Cancelar</button>
+
+                                                <button v-if="showAdd  & !loading" type="button" @click="AgregarProducto()"
+                                                    class="btn btn-primary waves-effect waves-light rounded-pill"><i class="fas fa-plus"></i>
+                                                    Agregar</button>
+                        
+                                                <button v-if="loading" class="btn btn-primary waves-effect waves-light rounded-pill" type="button" disabled>
+                                                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                                </button>
+                                            </div>
+                        
+                                        </div>
+                                    </div>
+                                </div>
+                        
+                        
+                            </div>
+                            <br>
+                            <div v-if="message" class="alert alert-success alert-dismissible bg-success text-white border-0 fade show" role="alert">
+                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+                                ${ info }
+                            </div>
+                        </div>
+
+
+                        <div class="col-lg-8">
+
+                            <div class="table-responsive">
+                                <table class="table table-borderless table-nowrap table-centered table-hover mb-0">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>Producto</th>
+                                            <th>Costo</th>
+                                            <th>Cantidad</th>
+                                            <th>Total</th>
+                                            <th style="width: 50px;"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr v-for="item in ov.items" :key="item.id">
+                                            <td>
+                                                <p class="m-0 d-inline-block align-middle font-16">
+                                                    <a href="#"
+                                                        class="text-reset font-family-secondary">${ item.producto.codigo }</a>
+                                                    <br>
+                                                    <small class="me-2"><b>Descripcion:</b> ${ item.producto.descripcion } </small>
+                                                </p>
+                                            </td>
+                                            <td>
+                                                $ ${ item.costo }
+                                            </td>
+                                            <td>
+                                                ${ item.cantidad }
+                                            </td>
+                                            <td>
+                                                $ ${ item.total }
+                                            </td>
+                                            <td>
+                                                <a @click="EditarItem(item)" class="action-icon"> <i class="mdi mdi-pencil"></i></a>
+                                                <a @click="BorrarItem(item.id)" class="action-icon"> <i class="mdi mdi-delete"></i></a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div> <!-- end table-responsive-->
+
+                        </div>
+                        <!-- end col -->
+                        
+                    </div>
+                </div> 
+            </div> 
+        </div> 
+    </div>
+</div>
+
+
+<button style="display: none;" type="button" class="btn btn-success waves-effect waves-light btn-sm" id="toastr-three">Click me</button>
+
+{% endblock content %}
+
+{% block extrajs %}
+<!-- <script src="{% static 'assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js' %}"></script>
+<script src="{% static 'assets/libs/select2/js/select2.min.js' %}"></script>
+<script src="{% static 'assets/libs/bootstrap-maxlength/bootstrap-maxlength.min.js' %}"></script>
+<script src="{% static 'assets/libs/selectize/js/standalone/selectize.min.js' %}"></script>
+<script src="{% static 'assets/libs/mohithg-switchery/switchery.min.js' %}"></script>
+<script src="{% static 'assets/libs/devbridge-autocomplete/jquery.autocomplete.min.js' %}"></script>
+
+<script src="{% static 'assets/js/pages/form-custom.init.js' %}"></script> -->
+ <!-- Tost-->
+ <script src="{% static 'assets/libs/jquery-toast-plugin/jquery.toast.min.js' %}"></script>
+ <script src="{% static 'assets/js/pages/toastr.init.js' %}"></script>
+
+<script src="{% static 'vue/js/vue.js' %}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+<script type="text/javascript">
+    new Vue({
+      el: '#app',
+      delimiters: ['${','}'],
+      data: {
+        API_URL: "http://127.0.0.1:8000",
+        loading: false,
+        message: false,
+        info: "",
+        disabled: false,
+        show: true,
+        showAdd: true,
+        lb_producto: "Agregar Producto",
+        buscar_componente: null,
+        productos: [],
+        componentes: [],
+        ov:[],
+        id_compra : '{{ request.resolver_match.kwargs.pk }}',
+        id_detalle : 0,
+        item: {
+            compra: 0,
+            producto: 0,
+            cantidad: 1,
+            costo: 0.00
+        }
+      },
+      mounted: function() {
+        this.getOrdenCompra();
+      },
+      watch: {
+        buscar_componente: function(val) {
+            this.getComponentes(val);
+        }
+      },
+      methods: {
+        getOrdenCompra(){
+            const id_compra = '{{ request.resolver_match.kwargs.pk }}';
+
+            axios.get(this.API_URL + "/api/compras/ov/" + id_compra).then(response => {
+                this.ov = response.data[0];
+
+            }).catch(error => {
+                console.log(error);
+            });
+        },
+        getComponentes(kword) {
+            axios.get(this.API_URL + "/api/inventario/lista-componentes/" + kword).then(response => {
+                this.componentes = response.data;
+            }).catch(error => {
+                console.log(error);
+            });
+        },
+        seleccionarProducto(id, codigo, descripcion){
+            this.buscar_componente = codigo + ' - ' + descripcion;
+            this.item.producto = id;
+        },
+        AgregarProducto(){
+            this.loading = true;
+            setTimeout(() => (this.loading = false), 2000);
+
+            const formData = new FormData();
+
+            const id_compra = '{{ request.resolver_match.kwargs.pk }}';
+
+            formData.append("compra", id_compra);
+            formData.append("producto", this.item.producto);
+            formData.append("cantidad", this.item.cantidad);
+            formData.append("costo", this.item.costo);
+            
+            axios.post(this.API_URL + "/api/compras/agregar-item/", formData, {
+                headers: {
+                    'X-CSRFTOKEN': '{{ csrf_token }}'
+                }
+            }).then(response => {
+                this.getOrdenCompra();
+
+                this.enviarMensaje('Agregado Exitosamente!');
+
+            }).catch(error => {
+                console.log(error);
+            });
+
+            this.clear();
+        },
+        EditarProducto(){
+            this.showAdd = true;
+            this.lb_producto = 'Agregar Producto';
+
+            this.loading = true;
+            setTimeout(() => (this.loading = false), 2000);
+
+            const formData = new FormData();
+
+            const id_compra = '{{ request.resolver_match.kwargs.pk }}';
+
+            formData.append("compra", id_compra);
+            formData.append("producto", this.item.producto);
+            formData.append("cantidad", this.item.cantidad);
+            formData.append("costo", this.item.costo);
+
+            axios.put(this.API_URL + "/api/compras/editar-item/" + this.id_detalle, formData, {
+                headers: {
+                    'X-CSRFTOKEN': '{{ csrf_token }}'
+                }
+            }).then(response => {
+                this.getOrdenCompra();
+
+                this.enviarMensaje('Actualizado Exitosamente!');
+
+            }).catch(error => {
+                console.log(error);
+            });
+
+            this.clear();
+        },
+        BorrarItem(pk) {
+            
+            axios.delete(this.API_URL + "/api/compras/borrar-item/" + pk, {
+                headers: {
+                    'X-CSRFTOKEN': '{{ csrf_token }}'
+                }
+            }).then(response => {
+                this.getOrdenCompra();
+
+                this.enviarMensaje('Borrado Exitosamente!');
+
+            }).catch(error => {
+                console.log(error);
+            });
+
+        },
+        enviarMensaje(info){
+            this.message = true;
+            this.info = info;
+
+            setTimeout(() => (this.message = false), 4000); 
+        },
+        clear(){
+            this.buscar_componente = null;
+            this.componentes = [];
+            this.id_detalle = 0;
+            this.disabled = false;
+            
+            this.item.producto = 0;
+            this.item.cantidad = 0;
+            this.item.costo = 0;
+        },
+        cancelar(){
+            this.disabled = false;
+            this.showAdd = true;
+            this.lb_producto = 'Agregar Producto';
+
+            this.clear();
+        },
+        EditarItem(item) {
+            this.showAdd = false;
+            this.disabled = true;
+            this.lb_producto = 'Editando Producto';
+
+            this.id_detalle = item.id
+            this.buscar_componente = item.producto.codigo + ' - ' + item.producto.descripcion;
+            this.item.producto = item.producto.id;
+            this.item.cantidad = item.cantidad;
+            this.item.costo = item.costo;
+
+        }
+      }
+    });
+  </script>
+{% endblock extrajs %}

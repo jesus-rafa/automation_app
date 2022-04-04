@@ -1,0 +1,77 @@
+{% load static %}
+<div class="modal-dialog modal-dialog-centered" role="document" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title">Carga Masiva de Componentes</h4>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <div class="modal-body p-4">
+            <form action="{% url 'inventario_app:batch-productos' %}" id="form_batch" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="mb-3">
+                            <label for="password" class="form-label">CSV</label>
+                            {{ Formulario.archivo }}
+
+                            <div class="text-center">
+                                <h5><span class="badge bg-warning">Maximo 1,000 registros por archivo</span></h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center d-grid">
+                    <button id="btExecute" class="btn btn-primary rounded-pill" type="submit">
+                        Ejecutar
+                    </button>
+
+                    <button id="btLoading" style="display: none;" class="btn btn-primary rounded-pill" type="button" disabled>
+                        <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
+                        Ejecutando
+                    </button>   
+
+                </div>
+            </form>
+        </div>
+
+        <div class="modal-footer">
+            <div class="text-center">
+                <a href="http://172.31.113.187:81/media/media/Plantilla.csv"
+                    title="Descargar" tabindex="0" data-plugin="tippy" data-tippy-placement="bottom"
+                    class="btn btn-success" target="_self">
+                    <i class="fas fa-download"></i> Plantilla Carga Masiva
+                </a>
+            </div>
+
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        </div>
+
+    </div>
+</div>
+{% block extrajs %}
+<script>
+    
+
+    $(document).ready(function () {
+
+        $('#id_archivo').attr("accept", ".csv");
+
+
+        $("#form_batch").submit(function (e) {
+
+            $("#btExecute").hide();
+            $("#btLoading").show();
+
+            return true;
+
+        });
+
+    });
+</script>
+{% endblock extrajs %}
+
+
+
