@@ -31,12 +31,12 @@ class Perfil(LoginRequiredMixin, UpdateView):
         user = self.request.user.pk
 
         context['perfil'] = User.objects.get(pk=user)
-        print('yes')
+        #print('yes')
 
         return context
 
     def form_valid(self, form):
-        print('yes')
+        #print('yes')
 
         return super(Perfil, self).form_valid(form)
 
@@ -50,7 +50,7 @@ class LoginUser(FormView):
 
     def form_valid(self, form):
         user = authenticate(
-            username=form.cleaned_data['username'],
+            email=form.cleaned_data['email'],
             password=form.cleaned_data['password']
         )
 

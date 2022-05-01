@@ -2,6 +2,30 @@ from ckeditor_uploader.fields import RichTextUploadingField
 from django.db import models
 
 
+class Caracteristicas(models.Model):
+    """ Model Caracterisicas"""
+
+    caracteristica = models.CharField(
+        'Caracteristica',
+        unique=True,
+        max_length=200,
+        blank=True
+    )
+    descripcion = models.CharField(
+        'Descripcion',
+        max_length=200,
+        blank=True
+    )
+
+    class Meta:
+        verbose_name = 'Caracteristicas'
+        verbose_name_plural = 'Caracteristicas'
+        ordering = ['caracteristica']
+
+    def __str__(self):
+        return self.caracteristica
+
+
 class Categoria(models.Model):
     nombre = models.CharField(
         'Categoria',
@@ -88,11 +112,21 @@ class Servicios(models.Model):
         max_length=200,
         blank=True
     )
-    contenido = models.TextField(blank=True)
-    imagen = models.ImageField(
-        'inventario', upload_to="servicios",
+    contenido = models.TextField(
+        'Contenido',
+        max_length=400,
         blank=True
     )
+    descripcion = models.CharField(
+        'Descripcion',
+        max_length=200,
+        blank=True
+    )
+    imagen = models.ImageField(
+        'imagen', upload_to="servicios",
+        blank=True
+    )
+    caracteristicas = models.ManyToManyField(Caracteristicas, blank=True)
 
     def __str__(self):
         return self.titulo
@@ -105,14 +139,17 @@ class Servicios(models.Model):
 
 class Producto(models.Model):
     codigo = models.CharField(
+        'Codigo',
         max_length=200,
         blank=True
     )
     nombre = models.CharField(
+        'Nombre',
         max_length=200,
         blank=True
     )
     descripcion = models.CharField(
+        'Descripcion',
         max_length=200,
         blank=True
     )
@@ -129,10 +166,21 @@ class Producto(models.Model):
         null=True
     )
     contenido = RichTextUploadingField(
-        'contenido',
+        'Contenido',
         blank=True,
         null=True
     )
+    estatus = models.CharField(
+        'Estatus',
+        max_length=100,
+        blank=True,
+        null=True
+    )
+    imagen = models.ImageField(
+        'Imagen', upload_to="productos",
+        blank=True
+    )
+    caracteristicas = models.ManyToManyField(Caracteristicas, blank=True)
 
     def __str__(self):
         return '{}'.format(self.codigo)
@@ -140,7 +188,6 @@ class Producto(models.Model):
     def save(self):
         self.codigo = self.codigo.upper()
         self.nombre = self.nombre.upper()
-        self.descripcion = self.descripcion.upper()
         super(Producto, self).save()
 
     class Meta:
@@ -163,4 +210,72 @@ class Estructura_Producto(models.Model):
     class Meta:
         verbose_name = "Estructura Productos"
         verbose_name_plural = "Estructura Productos"
+        ordering = ['producto']
+
+
+class Especificaciones(models.Model):
+    producto = models.ForeignKey(
+        Producto, on_delete=models.CASCADE, related_name="especificaciones"
+    )
+    hp = models.IntegerField(default=0)
+    fases_x_volts = models.CharField(
+        'Fases x Volts',
+        max_length=100,
+        blank=True
+    )
+    amp_contactor = models.IntegerField(default=0)
+    amp_nom = models.IntegerField(default=0)
+    rango_amp_relevador = models.CharField(
+        'Rango Amp Relevador',
+        max_length=100,
+        blank=True
+    )
+    tension_plena = models.CharField(
+        'Tension Plena',
+        max_length=100,
+        blank=True
+    )
+    estado_solido = models.CharField(
+        'Estado Solido',
+        max_length=100,
+        blank=True
+    )
+    baterias = models.IntegerField(default=0)
+    hidroneumatico = models.CharField(
+        'Hidroneumatico',
+        max_length=100,
+        blank=True
+    )
+    carcamo = models.CharField(
+        'Carcamo',
+        max_length=100,
+        blank=True
+    )
+    modelo = models.CharField(
+        'Modelo',
+        max_length=100,
+        blank=True
+    )
+    variador_1 = models.CharField(
+        'Variador 1',
+        max_length=100,
+        blank=True
+    )
+    variador_2 = models.CharField(
+        'Variador 2',
+        max_length=100,
+        blank=True
+    )
+    variador_3 = models.CharField(
+        'Variador 3',
+        max_length=100,
+        blank=True
+    )
+
+    def __str__(self):
+        return '{}'.format(self.producto)
+
+    class Meta:
+        verbose_name = "Especificaciones"
+        verbose_name_plural = "Especificaciones"
         ordering = ['producto']

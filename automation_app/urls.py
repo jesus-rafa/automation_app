@@ -20,6 +20,8 @@ from django.urls import include, path, re_path
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    # login google
+    path('accounts/', include('allauth.urls')),
 
     # apps locales
     re_path('', include('applications.users.urls')),

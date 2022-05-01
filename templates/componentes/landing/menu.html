@@ -1,0 +1,172 @@
+{% load static %}
+<!-- navbar navbar-expand-lg bg-white  navbar-transparent position-fixed w-100 top-0 z-index-3 shadow-none py-2 start-0 end-0 -->
+<nav class="navbar navbar-expand-lg bg-white z-index-3 py-3 position-fixed w-100 top-0 z-index-3 shadow-none py-2 start-0 end-0"
+    id="navbarPresentationShadow">
+    <div class="container pt-1">
+        <a class="navbar-brand font-weight-bolder ms-sm-3"
+            href=" https://demos.creative-tim.com/now-ui-design-system-pro/presentation.html " rel="tooltip"
+            title="Designed and Coded by Creative Tim" data-placement="bottom" target="_blank">
+            <img src="{% static 'landing/images/logo-transparente.png' %}" alt="" class="logo-dark" height="50" />
+        </a>
+        <button class="navbar-toggler shadow-none ms-md-2" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navigation" aria-controls="navigation" aria-expanded="false"
+            aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon mt-2">
+                <span class="navbar-toggler-bar bar1"></span>
+                <span class="navbar-toggler-bar bar2"></span>
+                <span class="navbar-toggler-bar bar3"></span>
+            </span>
+        </button>
+
+        <div class="collapse navbar-collapse w-100 pt-3 pb-2 py-lg-0" id="navigation">
+            <ul class="navbar-nav navbar-nav-hover mx-auto">
+                <li class="nav-item dropdown dropdown-hover mx-2">
+                    <a role="button"
+                        class="nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center text-dark"
+                        id="dropdownMenuPages" data-bs-toggle="dropdown" aria-expanded="false">
+                        Inicio
+                    </a>
+                </li>
+                <li class="nav-item dropdown dropdown-hover mx-2">
+                    <a role="button"
+                        class="nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center text-dark"
+                        id="dropdownMenuPages" data-bs-toggle="dropdown" aria-expanded="false">
+                        Nosotros
+                    </a>
+                </li>
+                <li class="nav-item dropdown dropdown-hover mx-2">
+                    <a role="button"
+                        class="nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center text-dark"
+                        id="dropdownMenuAccount" data-bs-toggle="dropdown" aria-expanded="false">
+                        Productos
+                        <img src="{% static 'assets/img/down-arrow-dark.svg' %}" alt="down-arrow" class="arrow ms-1">
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-animation dropdown-lg border-radius-lg py-0 mt-0 mt-lg-3 pe-3"
+                        aria-labelledby="dropdownMenuAccount">
+                        <div class="row d-none d-lg-flex">
+                            <div class="col-6">
+                                <div class="py-6 h-100 w-100 d-flex border-radius-lg border-radius-top-end-0 border-radius-bottom-end-0 position-relative dropdown-image"
+                                    style="background-image:url('{% static 'assets/img/bg3.jpg' %}')">
+                                    <div
+                                        class="mask bg-gradient-primary border-radius-lg border-radius-top-end-0 border-radius-bottom-end-0">
+                                    </div>
+                                    <div
+                                        class="d-flex justify-content-center align-items-center text-center text-white font-weight-bold w-100 z-index-1 flex-column">
+                                        <div class="icon icon-shape text-center">
+                                            <i class="ni ni-atom text-white h4 opacity-10" aria-hidden="true"></i>
+                                        </div>
+                                        <span class="text-lg mt-2">Tableros<br>de Control</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 ps-0 d-flex justify-content-center flex-column">
+                                <ul class="list-group">
+                                    
+                                    {% for producto in productos %}
+                                    <li class="nav-item list-group-item border-0 p-0">
+                                        <a href="./pages/coming-soon.html"
+                                            class="dropdown-item border-radius-md ps-3 d-flex align-items-center justify-content-between mb-1">
+                                            <span>{{ producto.nombre }}</span>
+                                        </a>
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="row d-lg-none">
+                            <div class="col-12 d-flex justify-content-center flex-column">
+                        
+                                <hr class="horizontal dark">
+                                {% for producto in productos %}
+                                <a href="./pages/coming-soon.html" class="dropdown-item border-radius-md">
+                                    {{ producto.nombre }}
+                                </a>
+                                {% endfor %}
+                                
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item dropdown dropdown-hover mx-2">
+                    <a role="button"
+                        class="nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center text-dark"
+                        id="dropdownMenuDocs" data-bs-toggle="dropdown" aria-expanded="false">
+                        Servicios
+                        <img src="{% static 'assets/img/down-arrow-dark.svg' %}" alt="down-arrow" class="arrow ms-1">
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-animation dropdown-lg mt-0 mt-lg-3 p-3 border-radius-lg"
+                        aria-labelledby="dropdownMenuDocs">
+                        <div class="d-none d-lg-block">
+                            <ul class="list-group">
+
+                                {% for servicio in servicios %}
+                                <li class="nav-item list-group-item border-0 p-0">
+                                    <a class="dropdown-item py-2 ps-3 border-radius-md"
+                                        href=" https://www.creative-tim.com/learning-lab/bootstrap/overview/now-ui-design-system ">
+                                        <div class="d-flex">
+                                            <div class="icon h-10 me-3 d-flex mt-1">
+                                                <i class="ni ni-support-16 text-primary"></i>
+                                            </div>
+                                            <div>
+                                                <h6
+                                                    class="dropdown-header text-dark font-weight-bold d-flex justify-content-cente align-items-center p-0">
+                                                    {{ servicio.titulo }}</h6>
+                                                <!-- <span class="text-sm">All about overview, quick start, license and
+                                                    contents</span> -->
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <div class="row d-lg-none">
+                            <div class="col-md-12 g-0">
+
+                                {% for servicio in servicios %}
+                                <a class="dropdown-item py-2 ps-3 border-radius-md" href="./pages/about-us.html">
+                                    <div class="d-flex">
+                                        <div class="icon h-10 me-3 d-flex mt-1">
+                                            <i class="ni ni-support-16 text-secondary"></i>
+                                        </div>
+                                        <div>
+                                            <h6
+                                                class="dropdown-header text-dark font-weight-bold d-flex justify-content-cente align-items-center p-0">
+                                                {{ servicio.titulo }}</h6>
+                                            <span class="text-sm">All about overview, quick start, license and
+                                                contents</span>
+                                        </div>
+                                    </div>
+                                </a>
+                                {% endfor %}
+                                
+                                
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item dropdown dropdown-hover mx-2">
+                    <a role="button"
+                        class="nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center text-dark"
+                        id="dropdownMenuPages" data-bs-toggle="dropdown" aria-expanded="false">
+                        Cotizar
+                    </a>
+                </li>
+            </ul>
+            <ul class="navbar-nav d-lg-block d-none">
+                <li class="nav-item">
+                    {% if request.user.is_authenticated %}
+                    <a href="{% url 'home_app:panel-admin' %}"
+                        class="btn btn-sm  bg-gradient-primary  btn-round mb-0 me-1">
+                        Ir a mi Tablero</a>
+
+                    {% else %}
+                    <a href="{% url 'users_app:login' %}"
+                        class="btn btn-sm  bg-gradient-primary  btn-round mb-0 me-1">Iniciar Sesion</a>
+
+                    {% endif %}
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

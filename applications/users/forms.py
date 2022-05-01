@@ -56,13 +56,15 @@ class UserForm(forms.ModelForm):
 
 
 class LoginForm(forms.Form):
-    username = forms.CharField(
-        label='Usuario',
+    email = forms.CharField(
+        label='Email',
         required=True,
         widget=forms.TextInput(
             attrs={
                 'placeholder': 'Usuario',
-                'class': 'web form-control'
+                'class': 'web form-control',
+                'placeholder': 'Email',
+                'aria-label': 'Email'
             }
         )
     )
@@ -73,17 +75,19 @@ class LoginForm(forms.Form):
         widget=forms.PasswordInput(
             attrs={
                 'placeholder': 'Contraseña',
-                'class': 'Password form-control'
+                'class': 'Password form-control',
+                'placeholder': 'Contraseña',
+                'aria-label': 'Password'
             }
         )
     )
 
     def clean(self):
         cleaned_data = super(LoginForm, self).clean()
-        username = self.cleaned_data['username']
+        email = self.cleaned_data['email']
         password = self.cleaned_data['password']
 
-        if not authenticate(username=username, password=password):
+        if not authenticate(email=email, password=password):
             raise forms.ValidationError(
                 'Los datos del usuario no son correctos')
 

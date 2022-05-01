@@ -1,0 +1,239 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="http://schema.org/WebPage">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="apple-touch-icon" sizes="76x76" href="{% static 'assets/img/apple-icon.png' %}">
+    <link rel="icon" type="image/png" href="{% static 'assets/img/favicon.png' %}">
+    <title>Automatizacion Industrial | DM Ingenieria </title>
+    <!--     Fonts and icons     -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700,200|Open+Sans+Condensed:700"
+        rel="stylesheet">
+    <!-- Nucleo Icons -->
+    <link href="{% static 'assets/css/nucleo-icons.css' %}" rel="stylesheet" />
+    <link href="{% static 'assets/css/nucleo-svg.css' %}" rel="stylesheet" />
+    <!-- Font Awesome Icons -->
+    <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+    <!-- CSS Files -->
+    <link id="pagestyle" href="{% static 'assets/css/now-design-system-pro.css' %}" rel="stylesheet" />
+    <!-- <link id="pagestyle" href="{% static 'assets/css/now-design-system-pro.css?v=2.2.0' %}" rel="stylesheet" /> -->
+</head>
+
+<body class="presentation-page">
+
+    <!-- Navbar -->
+    {% include 'componentes/landing/menu.html' %}
+    <!-- End Navbar -->
+
+    <!-- Ver Producto -->
+    <section class="py-7 bg-gray-200">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    {% for row in producto %}
+                    <div class="row">
+                        <div class="col-lg-6 justify-content-center d-flex flex-column">
+                            <div class="card rounded-3">
+                                <div class="d-block blur-shadow-image">
+                                    <img src="{{ row.imagen.url }}" alt="img-blur-shadow-blog-2"
+                                        class="img-fluid shadow rounded-3">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 justify-content-center d-flex flex-column ps-lg-5 pt-lg-0 pt-3">
+                            <h6 class="category text-info mt-3">Consultar tiempo de entrega</h6>
+                            <h3>
+    
+                                <a href="javascript:;" class="text-dark text-decoration-underline-hover">
+                                    {{ row.nombre }}
+                                </a>
+                            </h3>
+    
+                            <div class="col-lg-3">
+                                <span class="badge bg-gradient-success">{{ row.estatus }}</span>
+                            </div>
+    
+                            <p>
+                            <h6><strong>Descripcion:</strong></h6>
+                            {{ row.contenido|safe }}
+                            </p>
+    
+                            <p>
+                            <h6><strong>Caracteristicas:</strong></h6>
+                            {% for tag in row.caracteristicas.all %}
+    
+                            <div class="row">
+                                * {{ tag.caracteristica }}
+                            </div>
+    
+                            {% endfor %}
+                            </p>
+    
+                            <div class="text-center">
+                                <button class="btn bg-gradient-danger btn-icon" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalSignup">
+                                    <div class="d-flex align-items-center">
+                                        Cotizar
+                                    </div>
+                                </button>
+                            </div>
+    
+                        </div>
+    
+    
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="exampleModalSignup" tabindex="-1" aria-labelledby="exampleModalSignup" aria-hidden="true">
+            <div class="modal-dialog modal-danger modal-dialog-centered modal-" role="document">
+              <div class="modal-content">
+                <div class="modal-body p-0">
+                  <div class="card card-plain">
+                    <div class="card-header pb-0 text-start">
+                        <h3 class="font-weight-bold">Cotizar</h3>
+                        <p class="mb-0">Nos pondremos en contacto</p>
+                    </div>
+                    <div class="card-body pb-3">
+                      <form role="form text-start">
+                        <label>Name</label>
+                        <div class="input-group mb-3">
+                          <input type="text" class="form-control" placeholder="Name" aria-label="Name" aria-describedby="name-addon" >
+                        </div>
+                        <label>Email</label>
+                        <div class="input-group mb-3">
+                          <input type="email" class="form-control" placeholder="Email" aria-label="Email" aria-describedby="email-addon" >
+                        </div>
+                        <label>Nombre de la Empresa</label>
+                        <div class="input-group mb-3">
+                          <input type="password" class="form-control" placeholder="Empresa" aria-label="Name" aria-describedby="password-addon" >
+                        </div>
+
+                        <label>Giro de la Empresa</label>
+                        <div class="input-group mb-3">
+                          <input type="password" class="form-control" placeholder="Giro" aria-label="Name" aria-describedby="password-addon" >
+                        </div>
+
+                        <label>Producto</label>
+                        <div class="input-group mb-3">
+                          <input type="password" class="form-control" placeholder="Producto" aria-label="Name" aria-describedby="password-addon" >
+                        </div>
+
+                        <label>Comentarios</label>
+                        <div class="input-group mb-3">
+                          <input type="password" class="form-control" placeholder="Comentarios" aria-label="Name" aria-describedby="password-addon" >
+                        </div>
+                        
+                        <div class="text-center">
+                          <button type="button" class="btn bg-gradient-danger btn-lg btn-rounded  mt-4 mb-0">Enviar Cotización</button>
+                        </div>
+                      </form>
+                    </div>
+                   
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+    </section>
+
+   
+      
+
+    <!-- Footer -->
+    {% include 'componentes/landing/footer.html' %}
+    <!-- End Footer -->
+
+    <!--   Core JS Files   -->
+    <script src="{% static 'assets/js/core/popper.min.js' %}" type="text/javascript"></script>
+    <script src="{% static 'assets/js/core/bootstrap.min.js' %}" type="text/javascript"></script>
+    <script src="{% static 'assets/js/plugins/perfect-scrollbar.min.js' %}"></script>
+    <!--  Plugin for TypedJS, full documentation here: https://github.com/mattboldt/typed.js/ -->
+    <script src="{% static 'assets/js/plugins/typedjs.js' %}"></script>
+    <!--  Plugin for TypedJS, full documentation here: https://github.com/inorganik/CountUp.js -->
+    <script src="{% static 'assets/js/plugins/countup.min.js' %}"></script>
+    <!--  Plugin for Parallax, full documentation here: https://github.com/dixonandmoe/rellax -->
+    <script src="{% static 'assets/js/plugins/rellax.min.js' %}"></script>
+    <!--  Plugin for TiltJS, full documentation here: https://gijsroge.github.io/tilt.js/ -->
+    <script src="{% static 'assets/js/plugins/tilt.min.js' %}"></script>
+    <!--  Plugin for Selectpicker - ChoicesJS, full documentation here: https://github.com/jshjohnson/Choices -->
+    <script src="{% static 'assets/js/plugins/choices.min.js' %}"></script>
+    <!--  Plugin for Parallax, full documentation here: https://github.com/wagerfield/parallax  -->
+    <script src="{% static 'assets/js/plugins/parallax.min.js' %}"></script>
+    <!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
+    <script src="{% static 'assets/js/plugins/nouislider.min.js' %}" type="text/javascript"></script>
+    <!--  Plugin for the GlideJS Carousel, full documentation here: http://kenwheeler.github.io/slick/ -->
+    <script src="{% static 'assets/js/plugins/glidejs.min.js' %}" type="text/javascript"></script>
+    <!--  Plugin for the blob animation -->
+    <script src="{% static 'assets/js/plugins/anime.min.js' %}" type="text/javascript"></script>
+    <!-- Chart JS -->
+    <script src="{% static 'assets/js/plugins/chartjs.min.js' %}"></script>
+    <!-- Control Center foe Now UI Design System: parallax effects, scripts for the example pages etc -->
+    <!--  Google Maps Plugin    -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDTTfWur0PDbZWPr7Pmq8K3jiDp0_xUziI"></script>
+
+    <script src="{% static 'assets/js/now-design-system-pro.min.js' %}" type="text/javascript"></script>
+    <!-- <script src="{% static 'assets/js/now-design-system-pro.min.js?v=2.2.0' %}" type="text/javascript"></script> -->
+
+    <script type="text/javascript">
+        if (document.getElementById('state1')) {
+            const countUp = new CountUp('state1', document.getElementById("state1").getAttribute("countTo"));
+            if (!countUp.error) {
+                countUp.start();
+            } else {
+                console.error(countUp.error);
+            }
+        }
+        if (document.getElementById('state2')) {
+            const countUp1 = new CountUp('state2', document.getElementById("state2").getAttribute("countTo"));
+            if (!countUp1.error) {
+                countUp1.start();
+            } else {
+                console.error(countUp1.error);
+            }
+        }
+        if (document.getElementById('state3')) {
+            const countUp2 = new CountUp('state3', document.getElementById("state3").getAttribute("countTo"));
+            if (!countUp2.error) {
+                countUp2.start();
+            } else {
+                console.error(countUp2.error);
+            };
+        }
+
+        var el = document.getElementById('navbarPresentationShadow');
+        var distance = 58;
+
+        function scrollNavbarShadow() {
+            if (this.pageYOffset > distance) {
+                el.classList.remove('shadow-none');
+                el.classList.add('shadow');
+            } else {
+                el.classList.add('shadow-none');
+                el.classList.remove('shadow');
+            }
+        }
+
+        window.addEventListener("scroll", function () {
+            scrollNavbarShadow();
+        });
+    </script>
+    <script>
+        if (document.getElementsByClassName('page-header')) {
+            window.addEventListener('scroll', function () {
+                var scrollPosition = window.pageYOffset;
+                var bgParallax = document.querySelector('.page-header');
+                var limit = bgParallax.offsetTop + bgParallax.offsetHeight;
+                if (scrollPosition > bgParallax.offsetTop && scrollPosition <= limit) {
+                    bgParallax.style.backgroundPositionY = (50 - 10 * scrollPosition / limit * 3) + '%';
+                } else {
+                    bgParallax.style.backgroundPositionY = '50%';
+                }
+            });
+        }
+    </script>
+</body>
+</html>

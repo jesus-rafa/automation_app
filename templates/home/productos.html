@@ -1,0 +1,463 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Productos</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="DM Ingenieria" name="description" />
+    <meta content="Coderthemes" name="author" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="{% static 'landing/images/favicon.ico' %}">
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="{% static 'landing/css/bootstrap.min.css' %}" type="text/css">
+
+    <!--Material Icon -->
+    <link rel="stylesheet" type="text/css" href="{% static 'landing/css/materialdesignicons.min.css' %}" />
+
+    <!-- Custom  sCss -->
+    <link rel="stylesheet" type="text/css" href="{% static 'landing/css/style.css' %}" />
+</head>
+
+<body data-bs-spy="scroll" data-bs-target=".navbar" data-bs-offset="78">
+
+    <!--Navbar Start-->
+    <nav class="navbar navbar-expand-lg fixed-top navbar-custom sticky-dark" id="sticky">
+        <!-- <nav class="navbar navbar-expand-lg fixed-top navbar-custom sticky-dark" id="sticky"> -->
+        <div class="container-fluid">
+            <!-- LOGO -->
+            <a class="logo text-uppercase" href="/">
+                <img src="{% static 'landing/images/logo-transparente.png' %}" alt="" class="logo-light" height="70" />
+                <img src="{% static 'landing/images/logo-transparente.png' %}" alt="" class="logo-dark" height="70" />
+            </a>
+
+            <button id="btMenu" class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <i class="mdi mdi-menu"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav mx-auto navbar-center" id="mySidenav">
+                    <li class="nav-item">
+                        <h4><a href="#servicios" class="nav-link">Servicios</a></h4>
+                    </li>
+                    <li class="nav-item">
+                        <h4><a href="#productos" class="nav-link">Productos</a></h4>
+                    </li>
+                    <li class="nav-item">
+                        <h4><a href="#faq" class="nav-link">Nosotros</a></h4>
+                    </li>
+                    <li class="nav-item">
+                        <h4><a href="#contact" class="nav-link">Contacto</a></h4>
+                    </li>
+                </ul>
+                <div class="text-center">
+                    {% if request.user.is_authenticated %}
+                    <a href="{% url 'home_app:panel-admin' %}" class="btn btn-success navbar-btn rounded-pill">
+                        <i class="fe-log-out"></i>
+                        <span>Ir a mi Tablero</span>
+                    </a>
+
+                    {% else %}
+                    <a href="{% url 'users_app:login' %}" class="btn btn-success navbar-btn rounded-pill">
+                        <i class="fe-log-out"></i>
+                        <span>Iniciar Sesion</span>
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- Navbar End -->
+
+    <section class="bg-home bg-gradient" id="home">
+
+    </section>
+
+    <!-- available productoss start -->
+    <section class="section bg-light" id="productos">
+        <div class="container-fluid">
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <div class="text-center mb-2 pb-1">
+                        <h3>Productos</h3>
+                        <!-- <h4>Tableros de Control para Sistemas de Agua</h4> -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-lg-5">
+
+                                    <div class="tab-content pt-0">
+                                        <div class="tab-pane active show" id="product-1-item">
+                                            <img src="{% static 'landing/images/productos/tab-incendios.png' %}" alt="" class="img-fluid mx-auto d-block rounded">
+                                        </div>
+                                        <div class="tab-pane" id="product-2-item">
+                                            <img src="{% static 'landing/images/productos/tab-incendios.png' %}" alt="" class="img-fluid mx-auto d-block rounded">
+                                        </div>
+                                        <div class="tab-pane" id="product-3-item">
+                                            <img src="{% static 'landing/images/productos/tab-incendios.png' %}" alt="" class="img-fluid mx-auto d-block rounded">
+                                        </div>
+                                        
+                                    </div>
+
+                                    <ul class="nav nav-pills nav-justified">
+                                        <li class="nav-item">
+                                            <a href="#product-1-item" data-bs-toggle="tab" aria-expanded="false" class="nav-link product-thumb active show">
+                                                <img src="{% static 'landing/images/productos/tab-incendios.png' %}" alt="" class="img-fluid mx-auto d-block rounded">
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="#product-2-item" data-bs-toggle="tab" aria-expanded="true" class="nav-link product-thumb">
+                                                <img src="{% static 'landing/images/productos/tab-incendios.png' %}" alt="" class="img-fluid mx-auto d-block rounded">
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="#product-3-item" data-bs-toggle="tab" aria-expanded="false" class="nav-link product-thumb">
+                                                <img src="{% static 'landing/images/productos/tab-incendios.png' %}" alt="" class="img-fluid mx-auto d-block rounded">
+                                            </a>
+                                        </li>
+                                        
+                                    </ul>
+
+                                    <br>
+                                    <div>
+                                        <button type="button" class="btn btn-success btn-md waves-effect waves-light">
+                                            <span class="btn-label"><i class="mdi mdi-file-document-outline"></i></span>Manual
+                                        </button>
+                                        &nbsp;
+                                        <button type="button" class="btn btn-success btn-md waves-effect waves-light">
+                                            <span class="btn-label"><i class="mdi mdi-file-pdf"></i></span>Condiciones Generales de Venta
+                                        </button>
+                                    </div>
+                                </div> <!-- end col -->
+                                <div class="col-lg-7">
+                                    <div class="ps-xl-3 mt-3 mt-xl-0">
+                                        <h3 class="mb-3">Tableros de control para sistema contra incendios</h3>
+                                        <h5 class="mb-4"><span class="text-muted me-2">Entrega de 2 a 4 días</span></h5>
+                                        <h5><span class="badge bg-success mb-4">Disponible</span></h5>
+                                        <h5 class="mb-3">Description</h5>
+                                        <p class="text-muted mb-4">The languages only differ in their grammar, their pronunciation and their most common words. Everyone realizes why a new common language would be desirable: one could refuse to pay expensive translators.</p>
+                                        <h5 class="mb-3">Caracteristicas</h5>
+                                        <div class="row mb-3">
+                                            <div class="col-md-6">
+                                                <div>
+                                                    <p class="text-muted"><i class="mdi mdi-checkbox-marked-circle-outline h6 text-primary me-2"></i> Sed ut perspiciatis unde</p>
+                                                    <p class="text-muted"><i class="mdi mdi-checkbox-marked-circle-outline h6 text-primary me-2"></i> Nemo enim ipsam voluptatem</p>
+                                                    <p class="text-muted"><i class="mdi mdi-checkbox-marked-circle-outline h6 text-primary me-2"></i> Temporibus autem quibusdam et</p>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div>
+                                                    <p class="text-muted"><i class="mdi mdi-checkbox-marked-circle-outline h6 text-primary me-2"></i> Itaque earum rerum hic</p>
+                                                    <p class="text-muted"><i class="mdi mdi-checkbox-marked-circle-outline h6 text-primary me-2"></i> Donec quam felis ultricies nec</p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <h5 class="mb-3">Aplicaciones</h5>
+                                        <div class="row mb-3">
+                                            <div class="col-md-6">
+                                                <div>
+                                                    <h2><span class="badge bg-warning mb-4">Industrial</span></h2>
+                                                    <h2><span class="badge bg-success mb-4">Comercial</span></h2>
+                                                    <!-- <p class="text-muted"><i class="mdi mdi-checkbox-marked-circle-outline h6 text-primary me-2"></i> Industrial</p> -->
+                                                    <!-- <p class="text-muted"><i class="mdi mdi-checkbox-marked-circle-outline h6 text-primary me-2"></i> Comercial</p> -->
+                                                </div>
+                                            </div>
+                                            
+                                        </div>
+
+                                        <!-- <div>
+                                            <button type="button" class="btn btn-success btn-md waves-effect waves-light rounded-pill">
+                                                <span class="btn-label"><i class="mdi mdi-file-document-outline"></i></span>Manual
+                                            </button>
+                                            &nbsp;
+                                            <button type="button" class="btn btn-success btn-md waves-effect waves-light rounded-pill">
+                                                <span class="btn-label"><i class="mdi mdi-file-pdf"></i></span>Condiciones Generales de Venta
+                                            </button>
+                                        </div> -->
+                                        <!-- <br> -->
+                                        <div>
+                                            <button type="button" class="btn btn-danger btn-lg waves-effect waves-light" data-bs-toggle="modal" data-bs-target="#con-close-modal">
+                                                <span class="btn-label"><i class="mdi mdi-cart"></i></span>Cotizar
+                                            </button>                                            
+                                        </div>
+                                    </div>
+                                </div> <!-- end col -->
+
+                                
+                            </div>
+                            <!-- end row -->
+
+
+                            <div class="table-responsive mt-4">
+                                <h5 class="mb-3">Especificaciones</h5>
+                                <table class="table table-sm table-bordered table-centered mb-0">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>Outlets</th>
+                                            <th>Price</th>
+                                            <th>Stock</th>
+                                            <th>Revenue</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>ASOS Ridley Outlet - NYC</td>
+                                            <td>$139.58</td>
+                                            <td>
+                                                <div class="row align-items-center g-0">
+                                                    <div class="col-auto">
+                                                      <span class="me-2">27%</span>
+                                                    </div>
+                                                    <div class="col">
+                                                        <div class="progress progress-sm">
+                                                            <div class="progress-bar bg-danger" role="progressbar" style="width: 27%" aria-valuenow="27" aria-valuemin="0" aria-valuemax="100"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>$1,89,547</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Marco Outlet - SRT</td>
+                                            <td>$149.99</td>
+                                            <td>
+                                                <div class="row align-items-center g-0">
+                                                    <div class="col-auto">
+                                                      <span class="me-2">71%</span>
+                                                    </div>
+                                                    <div class="col">
+                                                        <div class="progress progress-sm">
+                                                            <div class="progress-bar bg-success" role="progressbar" style="width: 71%" aria-valuenow="71" aria-valuemin="0" aria-valuemax="100"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>$87,245</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Chairtest Outlet - HY</td>
+                                            <td>$135.87</td>
+                                            <td>
+                                                <div class="row align-items-center g-0">
+                                                    <div class="col-auto">
+                                                      <span class="me-2">82%</span>
+                                                    </div>
+                                                    <div class="col">
+                                                        <div class="progress progress-sm">
+                                                            <div class="progress-bar bg-success" role="progressbar" style="width: 82%" aria-valuenow="82" aria-valuemin="0" aria-valuemax="100"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>$5,87,478</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Nworld Group - India</td>
+                                            <td>$159.89</td>
+                                            <td>
+                                                <div class="row align-items-center g-0">
+                                                    <div class="col-auto">
+                                                      <span class="me-2">42%</span>
+                                                    </div>
+                                                    <div class="col">
+                                                        <div class="progress progress-sm">
+                                                            <div class="progress-bar bg-warning" role="progressbar" style="width: 42%" aria-valuenow="42" aria-valuemin="0" aria-valuemax="100"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>$55,781</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div> 
+                </div> <!-- end col-->
+            </div>
+
+            <div id="con-close-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Modal Content is Responsive</h4>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body p-4">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="field-1" class="form-label">Name</label>
+                                        <input type="text" class="form-control" id="field-1" placeholder="John">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="field-2" class="form-label">Surname</label>
+                                        <input type="text" class="form-control" id="field-2" placeholder="Doe">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="mb-3">
+                                        <label for="field-3" class="form-label">Address</label>
+                                        <input type="text" class="form-control" id="field-3" placeholder="Address">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="mb-3">
+                                        <label for="field-4" class="form-label">City</label>
+                                        <input type="text" class="form-control" id="field-4" placeholder="Boston">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="mb-3">
+                                        <label for="field-5" class="form-label">Country</label>
+                                        <input type="text" class="form-control" id="field-5" placeholder="United States">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="mb-3">
+                                        <label for="field-6" class="form-label">Zip</label>
+                                        <input type="text" class="form-control" id="field-6" placeholder="123456">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="">
+                                        <label for="field-7" class="form-label">Personal Info</label>
+                                        <textarea class="form-control" id="field-7" placeholder="Write something about yourself"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary waves-effect" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-info waves-effect waves-light">Save changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- /.modal -->
+
+
+
+            
+           
+
+        </div> <!-- end container-fluid -->
+    </section>
+    <!-- available productoss end -->
+
+    <!-- footer start -->
+    <footer class="bg-dark footer">
+        <div class="container-fluid">
+            <div class="row mb-5">
+                <div class="col-lg-4">
+                    <div class="pe-lg-4">
+                        <div class="mb-4">
+                            <img src="{% static 'landing/images/logo-white.png' %}" alt="" width="80%">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="pe-lg-4">
+                        <p class="text-white-50">Control y Automatizacion Industrial</p>
+                        <p class="text-white-50 mb-4 mb-lg-0">Somos una empresa enfocada en soluciones innovadoras de
+                            Controles de Bombeo, Automatización,Protecciones de Motores y Equipos Eléctricos con matriz
+                            en Monterrey, México. Nuestros productos se especializan en Protecciones de Motores y
+                            Bombas, Automatización, Relevadores de tiempo, Tableros de Bombeo y Control.</p>
+                    </div>
+                </div>
+
+                <div class="col-lg-2">
+                    <div class="footer-list">
+                        <p class="text-white mb-2 footer-list-title">Menu</p>
+                        <ul class="list-unstyled">
+                            <li><a href="#"><i class="mdi mdi-chevron-right me-2"></i>Home</a></li>
+                            <li><a href="#"><i class="mdi mdi-chevron-right me-2"></i>Servicios</a></li>
+                            <li><a href="#"><i class="mdi mdi-chevron-right me-2"></i>Productos</a></li>
+                            <li><a href="#"><i class="mdi mdi-chevron-right me-2"></i>Contacto</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- end row -->
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="float-start pull-none">
+                        <p class="text-white-50">
+                            <script>document.write(new Date().getFullYear())</script> &copy;DMIngenieria. <a
+                                href="https://coderthemes.com/" target="_blank" class="text-white-50">Todos los derechos
+                                reservados</a>
+                        </p>
+                        <!-- <p class="text-white-50">2015 - 2020 © Ubold. Design by <a href="https://coderthemes.com/" target="_blank" class="text-white-50">Coderthemes</a> </p> -->
+                    </div>
+                    <div class="float-end pull-none">
+                        <ul class="list-inline social-links">
+                            <li class="list-inline-item text-white-50">
+                                Social :
+                            </li>
+                            <li class="list-inline-item"><a href="#"><i class="mdi mdi-facebook"></i></a></li>
+                            <li class="list-inline-item"><a href="#"><i class="mdi mdi-twitter"></i></a></li>
+                            <li class="list-inline-item"><a href="#"><i class="mdi mdi-instagram"></i></a></li>
+                            <li class="list-inline-item"><a href="#"><i class="mdi mdi-google-plus"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- end col -->
+            </div>
+            <!-- end row -->
+        </div>
+        <!-- container-fluid -->
+    </footer>
+    <!-- footer end -->
+
+    <!-- Back to top -->
+    <!-- <a href="#" class="back-to-top" id="back-to-top"> <i class="mdi mdi-chevron-up"> </i> </a> -->
+    <!-- Back to top -->
+    <a href="#" onclick="topFunction()" class="back-to-top-btn btn btn-success" id="back-to-top-btn"><i
+            class="mdi mdi-chevron-up"></i></a>
+
+    <!-- Vendor js -->
+    <script src="{% static 'assets/js/vendor.min.js' %}"></script>
+
+    <!-- javascript -->
+    <script src="{% static 'landing/js/bootstrap.bundle.min.js' %}"></script>
+
+    <!-- custom js -->
+    <script src="{% static 'landing/js/app.js' %}"></script>
+
+    <script>
+        $(document).ready(function () {
+
+            $('.navbar-collapse a').click(function () {
+                $(".navbar-collapse").collapse('hide');
+            });
+
+        });
+    </script>
+
+
+</body>
+
+</html>

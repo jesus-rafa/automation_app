@@ -22,7 +22,6 @@ DATABASES = {
     }
 }
 
-
 STATIC_URL = '/static/'
 STATIC_ROOT = '/static/'
 STATICFILES_DIRS = [BASE_DIR.child('static')]

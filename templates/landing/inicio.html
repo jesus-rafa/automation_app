@@ -1,0 +1,296 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="http://schema.org/WebPage">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="apple-touch-icon" sizes="76x76" href="{% static 'assets/img/apple-icon.png' %}">
+    <link rel="icon" type="image/png" href="{% static 'assets/img/favicon.png' %}">
+    <title>Automatizacion Industrial | DM Ingenieria </title>
+    <!--     Fonts and icons     -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700,200|Open+Sans+Condensed:700"
+        rel="stylesheet">
+    <!-- Nucleo Icons -->
+    <link href="{% static 'assets/css/nucleo-icons.css' %}" rel="stylesheet" />
+    <link href="{% static 'assets/css/nucleo-svg.css' %}" rel="stylesheet" />
+    <!-- Font Awesome Icons -->
+    <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+    <!-- CSS Files -->
+    <link id="pagestyle" href="{% static 'assets/css/now-design-system-pro.css' %}" rel="stylesheet" />
+    <!-- <link id="pagestyle" href="{% static 'assets/css/now-design-system-pro.css?v=2.2.0' %}" rel="stylesheet" /> -->
+</head>
+
+<body class="presentation-page">
+
+    <!-- Navbar -->
+    {% include 'componentes/landing/menu.html' %}
+    <!-- End Navbar -->
+
+    <!-- Header -->
+    {% include 'componentes/landing/header.html' %}
+    <!-- End Header -->
+
+    <!-- Servicios -->
+    <section class="pt-5 pb-0">
+        <div class="container">
+            <div class="row">
+                <h3>Servicios</h3>
+
+                {% for servicio in servicios %}
+                <div class="col-lg-4 col-md-6">
+                    <div class="card card-blog card-plain">
+                        <div class="position-relative">
+                            <a class="d-block">
+                                <img src="{{ servicio.imagen.url }}" alt="img-blur-shadow"
+                                    class="img-fluid shadow border-radius-lg">
+                            </a>
+                        </div>
+                        <div class="card-body px-1 pt-3">
+                            <a href="javascript:;">
+                                <h5>
+                                    {{ servicio.titulo }}
+                                </h5>
+                            </a>
+                            <p>
+                                {{ servicio.descripcion }}
+                            </p>
+                            <div class="text-center">
+                                <button class="btn bg-gradient-danger btn-icon" type="button">
+                                    <div class="d-flex align-items-center">
+                                        Ver Detalle
+                                    </div>
+                                </button>
+                            </div>
+    
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+    
+            </div>
+        </div>
+    </section>
+    <!-- End Servicios -->
+
+    <!-- Productos -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row">
+                <h3>Productos</h3>
+                
+                {% for producto in productos %}
+                <div class="col-lg-3 col-sm-6">
+                    <div class="card card-plain card-blog mt-4">
+                        <div class="card-image border-radius-lg position-relative">
+                            <a href="javascript:;">
+                                <div>
+                                    <img class="img border-radius-lg" src="{{ producto.imagen.url }}">
+                                </div>
+                            </a>
+                        </div>
+                        <div class="card-body px-0">
+                            <h5>
+                                <a href="javascript:;"
+                                    class="text-dark font-weight-bold text-decoration-underline-hover">
+                                    {{ producto.nombre }}
+                                </a>
+                            </h5>
+                            <p>
+                                {{ producto.descripcion }}
+                            </p>
+
+                            <div class="text-center">
+                                <a href="{% url 'home_app:ver-producto' producto.id %}" class="btn bg-gradient-danger btn-icon" type="button">
+                                    <div class="d-flex align-items-center">
+                                        Ver Detalle
+                                    </div>
+                                </a>
+                            </div>
+                           
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    <!-- End Productos -->
+
+    <!-- Nosotros -->
+    <section class="position-relative">
+        <div class="page-header min-vh-50" style="background-image: url({% static 'assets/img/bg14.jpg' %});">
+            <span class="mask bg-gradient-primary"></span>
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8 text-center mx-auto">
+                        <h2 class="text-white mb-3">Nosotros</h2>
+                        <p class="lead text-white mb-0">
+                            DM Ingeniería es una empresa joven llena de ideas y con una proyección hacia el futuro enfocada
+                            en la innovación y
+                            calidad de servicio, asi como de nuestro productos. Nuestras soluciones se enfocan en Control,
+                            Automatización, HVAC,
+                            Equipos y Tableros de Bombeo.
+                        </p>
+                        <br>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container mt-n6 position-relative">
+            <div class="row mt-sm-0 mt-5">
+                <div class="col-md-10 mx-auto">
+                    <div class="row bg-white shadow border-radius-lg">
+                        <div class="col-lg-3 col-md-4 border-right ms-lg-auto">
+                            <div class="p-3 text-center">
+                                <i class="ni ni-world-2 text-info h4 mb-2"></i>
+                                <h6 class="mb-0">Sitio Web</h6>
+                                <p class="text-info mb-0">dmingenieria.com.mx</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-4 border-right">
+                            <div class="p-3 text-center">
+                                <i class="fab fa-whatsapp text-info mb-2 h4"></i>
+                                <h6 class="mb-0">Telefono</h6>
+                                <p class="text-info mb-0">477 160 87 67</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-4 me-lg-auto">
+                            <div class="p-3 text-center">
+                                <i class="ni ni-email-83 text-info h4 mb-2"></i>
+                                <h6 class="mb-0">Correo</h6>
+                                <p class="text-info mb-0">ventas@dmingenieria.com.mx</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- END Nosotros -->
+
+    <!-- Proveedores -->
+    <div class="py-8">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 mx-auto text-center">
+                    <h3>Our products are built on top</h3>
+                    <p class="lead">Very nice logos here on this page, you can check more on our social profiles.</p>
+                </div>
+            </div>
+            <div class="row mt-5">
+                <div class="col-lg-2 col-md-4 col-6 mb-4 ms-auto">
+                    <img class="w-100 opacity-7" src="{% static 'assets/img/logos/medium-logos/logo-apple.svg' %}">
+                </div>
+                <div class="col-lg-2 col-md-4 col-6 mb-4">
+                    <img class="w-100 opacity-7" src="{% static 'assets/img/logos/medium-logos/logo-mailchimp.svg' %}">
+                </div>
+                <div class="col-lg-2 col-md-4 col-6 mb-4">
+                    <img class="w-100 opacity-7" src="{% static 'assets/img/logos/medium-logos/logo-behance.svg' %}">
+                </div>
+                <div class="col-lg-2 col-md-4 col-6 mb-4">
+                    <img class="w-100 opacity-7" src="{% static 'assets/img/logos/medium-logos/logo-mailchimp.svg' %}">
+                </div>
+                <div class="col-lg-2 col-md-4 col-6 mb-4 me-auto">
+                    <img class="w-100 opacity-7" src="{% static 'assets/img/logos/medium-logos/logo-nasa.svg' %}">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Proveedores -->
+
+    <!-- Footer -->
+    {% include 'componentes/landing/footer.html' %}
+    <!-- End Footer -->
+
+    <!--   Core JS Files   -->
+    <script src="{% static 'assets/js/core/popper.min.js' %}" type="text/javascript"></script>
+    <script src="{% static 'assets/js/core/bootstrap.min.js' %}" type="text/javascript"></script>
+    <script src="{% static 'assets/js/plugins/perfect-scrollbar.min.js' %}"></script>
+    <!--  Plugin for TypedJS, full documentation here: https://github.com/mattboldt/typed.js/ -->
+    <script src="{% static 'assets/js/plugins/typedjs.js' %}"></script>
+    <!--  Plugin for TypedJS, full documentation here: https://github.com/inorganik/CountUp.js -->
+    <script src="{% static 'assets/js/plugins/countup.min.js' %}"></script>
+    <!--  Plugin for Parallax, full documentation here: https://github.com/dixonandmoe/rellax -->
+    <script src="{% static 'assets/js/plugins/rellax.min.js' %}"></script>
+    <!--  Plugin for TiltJS, full documentation here: https://gijsroge.github.io/tilt.js/ -->
+    <script src="{% static 'assets/js/plugins/tilt.min.js' %}"></script>
+    <!--  Plugin for Selectpicker - ChoicesJS, full documentation here: https://github.com/jshjohnson/Choices -->
+    <script src="{% static 'assets/js/plugins/choices.min.js' %}"></script>
+    <!--  Plugin for Parallax, full documentation here: https://github.com/wagerfield/parallax  -->
+    <script src="{% static 'assets/js/plugins/parallax.min.js' %}"></script>
+    <!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
+    <script src="{% static 'assets/js/plugins/nouislider.min.js' %}" type="text/javascript"></script>
+    <!--  Plugin for the GlideJS Carousel, full documentation here: http://kenwheeler.github.io/slick/ -->
+    <script src="{% static 'assets/js/plugins/glidejs.min.js' %}" type="text/javascript"></script>
+    <!--  Plugin for the blob animation -->
+    <script src="{% static 'assets/js/plugins/anime.min.js' %}" type="text/javascript"></script>
+    <!-- Chart JS -->
+    <script src="{% static 'assets/js/plugins/chartjs.min.js' %}"></script>
+    <!-- Control Center foe Now UI Design System: parallax effects, scripts for the example pages etc -->
+    <!--  Google Maps Plugin    -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDTTfWur0PDbZWPr7Pmq8K3jiDp0_xUziI"></script>
+
+    <script src="{% static 'assets/js/now-design-system-pro.min.js' %}" type="text/javascript"></script>
+    <!-- <script src="{% static 'assets/js/now-design-system-pro.min.js?v=2.2.0' %}" type="text/javascript"></script> -->
+
+    <script type="text/javascript">
+        if (document.getElementById('state1')) {
+            const countUp = new CountUp('state1', document.getElementById("state1").getAttribute("countTo"));
+            if (!countUp.error) {
+                countUp.start();
+            } else {
+                console.error(countUp.error);
+            }
+        }
+        if (document.getElementById('state2')) {
+            const countUp1 = new CountUp('state2', document.getElementById("state2").getAttribute("countTo"));
+            if (!countUp1.error) {
+                countUp1.start();
+            } else {
+                console.error(countUp1.error);
+            }
+        }
+        if (document.getElementById('state3')) {
+            const countUp2 = new CountUp('state3', document.getElementById("state3").getAttribute("countTo"));
+            if (!countUp2.error) {
+                countUp2.start();
+            } else {
+                console.error(countUp2.error);
+            };
+        }
+
+        var el = document.getElementById('navbarPresentationShadow');
+        var distance = 58;
+
+        function scrollNavbarShadow() {
+            if (this.pageYOffset > distance) {
+                el.classList.remove('shadow-none');
+                el.classList.add('shadow');
+            } else {
+                el.classList.add('shadow-none');
+                el.classList.remove('shadow');
+            }
+        }
+
+        window.addEventListener("scroll", function () {
+            scrollNavbarShadow();
+        });
+    </script>
+    <script>
+        if (document.getElementsByClassName('page-header')) {
+            window.addEventListener('scroll', function () {
+                var scrollPosition = window.pageYOffset;
+                var bgParallax = document.querySelector('.page-header');
+                var limit = bgParallax.offsetTop + bgParallax.offsetHeight;
+                if (scrollPosition > bgParallax.offsetTop && scrollPosition <= limit) {
+                    bgParallax.style.backgroundPositionY = (50 - 10 * scrollPosition / limit * 3) + '%';
+                } else {
+                    bgParallax.style.backgroundPositionY = '50%';
+                }
+            });
+        }
+    </script>
+</body>
+</html>
