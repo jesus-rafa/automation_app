@@ -11,20 +11,20 @@
 
     {% block head %} {% endblock head %}
     <!-- Plugins css -->
-    <link href="{% static 'assets/libs/flatpickr/flatpickr.min.css' %}" rel="stylesheet" type="text/css" />
-    <link href="{% static 'assets/libs/selectize/css/selectize.bootstrap3.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'admin/assets/libs/flatpickr/flatpickr.min.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'admin/assets/libs/selectize/css/selectize.bootstrap3.css' %}" rel="stylesheet" type="text/css" />
     <!-- App css -->
-    <link href="{% static 'assets/css/config/creative/bootstrap.min.css' %}" rel="stylesheet" type="text/css"
+    <link href="{% static 'admin/assets/css/config/creative/bootstrap.min.css' %}" rel="stylesheet" type="text/css"
         id="bs-default-stylesheet" />
-    <link href="{% static 'assets/css/config/creative/app.min.css' %}" rel="stylesheet" type="text/css"
+    <link href="{% static 'admin/assets/css/config/creative/app.min.css' %}" rel="stylesheet" type="text/css"
         id="app-default-stylesheet" />
-    <link href="{% static 'assets/css/config/creative/bootstrap-dark.min.css' %}" rel="stylesheet" type="text/css"
+    <link href="{% static 'admin/assets/css/config/creative/bootstrap-dark.min.css' %}" rel="stylesheet" type="text/css"
         id="bs-dark-stylesheet" />
-    <link href="{% static 'assets/css/config/creative/app-dark.min.css' %}" rel="stylesheet" type="text/css"
+    <link href="{% static 'admin/assets/css/config/creative/app-dark.min.css' %}" rel="stylesheet" type="text/css"
         id="app-dark-stylesheet" />
 
     <!-- icons -->
-    <link href="{% static 'assets/css/icons.min.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'admin/assets/css/icons.min.css' %}" rel="stylesheet" type="text/css" />
 
     <title>{% block title %} {% endblock title %}</title>
 </head>
@@ -32,7 +32,7 @@
 <!-- body start -->
 
 <body class="loading" data-layout-mode="horizontal"
-    data-layout='{"mode": "light", "width": "fluid", "menuPosition": "fixed", "sidebar": { "color": "dark", "size": "default", "showuser": false}, "topbar": {"color": "light"}, "showRightSidebarOnPageLoad": true}'>
+    data-layout='{"mode": "light", "width": "fluid", "menuPosition": "fixed", "sidebar": { "color": "dark", "size": "default", "showuser": false}, "topbar": {"color": "light"}, "showRightSidebarOnPageLoad": false}'>
 
     <!-- Begin page -->
     <div id="wrapper">
@@ -78,15 +78,15 @@
                     </li>
 
                     <li class="dropdown notification-list topbar-dropdown">
-                        <a class="nav-link dropdown-toggle waves-effect waves-light" data-bs-toggle="dropdown" href="#"
+                        <!-- <a class="nav-link dropdown-toggle waves-effect waves-light" data-bs-toggle="dropdown" href="#"
                             role="button" aria-haspopup="false" aria-expanded="false">
                             <i class="fe-bell noti-icon"></i>
                             <span class="badge bg-danger rounded-circle noti-icon-badge">9</span>
-                        </a>
+                        </a> -->
                         <div class="dropdown-menu dropdown-menu-end dropdown-lg">
 
                             <!-- item-->
-                            <div class="dropdown-item noti-title">
+                            <!-- <div class="dropdown-item noti-title">
                                 <h5 class="m-0">
                                     <span class="float-end">
                                         <a href="" class="text-dark">
@@ -94,82 +94,19 @@
                                         </a>
                                     </span>Notification
                                 </h5>
-                            </div>
+                            </div> -->
 
                             <div class="noti-scroll" data-simplebar>
 
-                                <!-- item-->
-                                <a href="javascript:void(0);" class="dropdown-item notify-item active">
-                                    <div class="notify-icon">
-                                        <img src="../assets/images/users/user-1.jpg" class="img-fluid rounded-circle"
-                                            alt="" />
-                                    </div>
-                                    <p class="notify-details">Cristina Pride</p>
-                                    <p class="text-muted mb-0 user-msg">
-                                        <small>Hi, How are you? What about our next meeting</small>
-                                    </p>
-                                </a>
-
-                                <!-- item-->
-                                <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                    <div class="notify-icon bg-primary">
-                                        <i class="mdi mdi-comment-account-outline"></i>
-                                    </div>
-                                    <p class="notify-details">Caleb Flakelar commented on Admin
-                                        <small class="text-muted">1 min ago</small>
-                                    </p>
-                                </a>
-
-                                <!-- item-->
-                                <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                    <div class="notify-icon">
-                                        <img src="../assets/images/users/user-4.jpg" class="img-fluid rounded-circle"
-                                            alt="" />
-                                    </div>
-                                    <p class="notify-details">Karen Robinson</p>
-                                    <p class="text-muted mb-0 user-msg">
-                                        <small>Wow ! this admin looks good and awesome design</small>
-                                    </p>
-                                </a>
-
-                                <!-- item-->
-                                <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                    <div class="notify-icon bg-warning">
-                                        <i class="mdi mdi-account-plus"></i>
-                                    </div>
-                                    <p class="notify-details">New user registered.
-                                        <small class="text-muted">5 hours ago</small>
-                                    </p>
-                                </a>
-
-                                <!-- item-->
-                                <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                    <div class="notify-icon bg-info">
-                                        <i class="mdi mdi-comment-account-outline"></i>
-                                    </div>
-                                    <p class="notify-details">Caleb Flakelar commented on Admin
-                                        <small class="text-muted">4 days ago</small>
-                                    </p>
-                                </a>
-
-                                <!-- item-->
-                                <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                    <div class="notify-icon bg-secondary">
-                                        <i class="mdi mdi-heart"></i>
-                                    </div>
-                                    <p class="notify-details">Carlos Crouch liked
-                                        <b>Admin</b>
-                                        <small class="text-muted">13 days ago</small>
-                                    </p>
-                                </a>
+                               
                             </div>
 
                             <!-- All-->
-                            <a href="javascript:void(0);"
+                            <!-- <a href="javascript:void(0);"
                                 class="dropdown-item text-center text-primary notify-item notify-all">
                                 View all
                                 <i class="fe-arrow-right"></i>
-                            </a>
+                            </a> -->
 
                         </div>
                     </li>
@@ -182,7 +119,7 @@
 								<img src="{{ request.user.avatar.url }}" alt="user-image"
 									class="rounded-circle">
 							{% else %}
-								<img src="{% static 'assets/images/user_group.png' %}" alt="user-image"
+								<img src="{% static 'admin/assets/images/user_group.png' %}" alt="user-image"
 									class="rounded-circle">
 							{% endif %}
                             <span class="pro-user-name ms-1">
@@ -224,35 +161,35 @@
                         </div>
                     </li>
 
-                    <li class="dropdown notification-list">
+                    <!-- <li class="dropdown notification-list">
                         <a href="javascript:void(0);" class="nav-link right-bar-toggle waves-effect waves-light">
                             <i class="fe-settings noti-icon"></i>
                         </a>
-                    </li>
+                    </li> -->
 
                 </ul>
 
                 <!-- LOGO -->
                 <div class="logo-box">
-                    <a href="index.html" class="logo logo-dark text-center">
+                    <a href="/" class="logo logo-dark text-center">
                         <span class="logo-sm">
                             <!-- <img src="{{ app.logo_mini.url }}" alt="" height="90"> -->
-                            <img src="{% static 'landing/images/logo-mini-transparente.png' %}" alt="" height="30">
+                            <img src="{% static 'assets/img/logos/logo-mini-transparente.png' %}" alt="" height="30">
                         </span>
                         <span class="logo-lg">
                             <!-- <img src="{{ app.logo.url }}" alt="" height="90"> -->
-                            <img src="{% static 'landing/images/logo-black.png' %}" alt="" height="70">
+                            <img src="{% static 'assets/img/logos/logo-transparente.png' %}" alt="" height="70">
                         </span>
                     </a>
 
-                    <a href="index.html" class="logo logo-light text-center">
+                    <a href="/" class="logo logo-light text-center">
                         <span class="logo-sm">
                             <!-- <img src="{{ app.logo_mini.url }}" alt="" height="90"> -->
-                            <img src="{% static 'landing/images/logo-mini-transparente.png' %}" alt="" height="30">
+                            <img src="{% static 'assets/img/logos/logo-mini-transparente.png' %}" alt="" height="30">
                         </span>
                         <span class="logo-lg">
                             <!-- <img src="{{ app.logo.url }}" alt="" height="90"> -->
-                            <img src="{% static 'landing/images/logo-black.png' %}" alt="" height="70">
+                            <img src="{% static 'assets/img/logos/logo-transparente.png' %}" alt="" height="70">
                         </span>
                     </a>
                 </div>
@@ -326,15 +263,15 @@
     <div class="rightbar-overlay"></div>
 
     <!-- Vendor js -->
-    <script src="{% static 'assets/js/vendor.min.js' %}"></script>
+    <script src="{% static 'admin/assets/js/vendor.min.js' %}"></script>
 
     <!-- Tippy js-->
-    <script src="{% static 'assets/libs/tippy.js/tippy.all.min.js' %}"></script>
+    <script src="{% static 'admin/assets/libs/tippy.js/tippy.all.min.js' %}"></script>
 
     {% block extrajs %} {% endblock extrajs %}
 
     <!-- App js-->
-    <script src="{% static 'assets/js/app.min.js' %}"></script>
+    <script src="{% static 'admin/assets/js/app.min.js' %}"></script>
 
 </body>
 

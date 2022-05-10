@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -8,7 +9,7 @@ from django.urls import reverse, reverse_lazy
 from django.views.generic import UpdateView, View
 from django.views.generic.edit import FormView
 
-from .forms import LoginForm, UserForm
+from .forms import LoginForm, UserForm, UserRegisterForm
 from .models import User
 
 
@@ -31,12 +32,12 @@ class Perfil(LoginRequiredMixin, UpdateView):
         user = self.request.user.pk
 
         context['perfil'] = User.objects.get(pk=user)
-        #print('yes')
+        # print('yes')
 
         return context
 
     def form_valid(self, form):
-        #print('yes')
+        # print('yes')
 
         return super(Perfil, self).form_valid(form)
 
@@ -50,7 +51,7 @@ class LoginUser(FormView):
 
     def form_valid(self, form):
         user = authenticate(
-            email=form.cleaned_data['email'],
+            email=form.cleaned_data['username'],
             password=form.cleaned_data['password']
         )
 
@@ -70,6 +71,33 @@ class LoginUser(FormView):
                 return reverse_lazy('home_app:panel-cliente')
 
 
+class RegistroUser(FormView):
+    template_name = 'users/registro.html'
+    form_class = UserRegisterForm
+
+    def form_valid(self, form):
+        #
+        User.objects.create_user(
+            form.cleaned_data['username'],
+            form.cleaned_data['password1'],
+        )
+
+        # user = authenticate(
+        #     email=form.cleaned_data['username'],
+        #     password=form.cleaned_data['password1']
+        # )
+
+        messages.success(
+            self.request, 'Cuenta creada exitosamente!')
+
+        # login(self.request, user)
+
+        return super(RegistroUser, self).form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy('users_app:login')
+
+
 class LogoutView(View):
 
     def get(self, request, *args, **kwargs):
@@ -77,6 +105,6 @@ class LogoutView(View):
 
         return HttpResponseRedirect(
             reverse(
-                'home_app:landing'
+                'home_app:index'
             )
         )

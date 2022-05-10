@@ -1,296 +1,307 @@
+{% extends "landing/base_landing.html" %}
 {% load static %}
 
-<!DOCTYPE html>
-<html lang="en" itemscope itemtype="http://schema.org/WebPage">
+{% block title %}
+Automatización Industrial | DM Ingenieria
+{% endblock title %}
 
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="apple-touch-icon" sizes="76x76" href="{% static 'assets/img/apple-icon.png' %}">
-    <link rel="icon" type="image/png" href="{% static 'assets/img/favicon.png' %}">
-    <title>Automatizacion Industrial | DM Ingenieria </title>
-    <!--     Fonts and icons     -->
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700,200|Open+Sans+Condensed:700"
-        rel="stylesheet">
-    <!-- Nucleo Icons -->
-    <link href="{% static 'assets/css/nucleo-icons.css' %}" rel="stylesheet" />
-    <link href="{% static 'assets/css/nucleo-svg.css' %}" rel="stylesheet" />
-    <!-- Font Awesome Icons -->
-    <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
-    <!-- CSS Files -->
-    <link id="pagestyle" href="{% static 'assets/css/now-design-system-pro.css' %}" rel="stylesheet" />
-    <!-- <link id="pagestyle" href="{% static 'assets/css/now-design-system-pro.css?v=2.2.0' %}" rel="stylesheet" /> -->
-</head>
+{% block description %}
+<meta name="description" content="Automatización Industrial, Tableros de Control, HVAC">
+{% endblock description %}
 
-<body class="presentation-page">
+{% block tags %}
+<meta name="keywords" content="Automatización Industrial, Tableros de Control, HVAC">
+{% endblock tags %}
 
-    <!-- Navbar -->
-    {% include 'componentes/landing/menu.html' %}
-    <!-- End Navbar -->
+{% block content %}
 
-    <!-- Header -->
-    {% include 'componentes/landing/header.html' %}
-    <!-- End Header -->
+{% if messages %}
+{% for message in messages %}
+<div style="z-index: 999; position: relative;"
+    class="alert alert-success alert-dismissible text-white text-center fade show" role="alert">
+    {{ message|safe }}
+    <button type="button" class="btn-close text-lg py-3 opacity-10" data-bs-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+{% endfor %}
+{% endif %}
 
-    <!-- Servicios -->
-    <section class="pt-5 pb-0">
-        <div class="container">
-            <div class="row">
-                <h3>Servicios</h3>
+<!-- Navbar -->
+{% include 'componentes/landing/menu.html' %}
+<!-- End Navbar -->
 
-                {% for servicio in servicios %}
-                <div class="col-lg-4 col-md-6">
-                    <div class="card card-blog card-plain">
-                        <div class="position-relative">
-                            <a class="d-block">
-                                <img src="{{ servicio.imagen.url }}" alt="img-blur-shadow"
-                                    class="img-fluid shadow border-radius-lg">
-                            </a>
-                        </div>
-                        <div class="card-body px-1 pt-3">
-                            <a href="javascript:;">
-                                <h5>
-                                    {{ servicio.titulo }}
-                                </h5>
-                            </a>
-                            <p>
-                                {{ servicio.descripcion }}
-                            </p>
-                            <div class="text-center">
-                                <button class="btn bg-gradient-danger btn-icon" type="button">
-                                    <div class="d-flex align-items-center">
-                                        Ver Detalle
-                                    </div>
-                                </button>
-                            </div>
-    
-                        </div>
+<!-- Header -->
+{% include 'componentes/landing/header.html' %}
+<!-- End Header -->
+
+<!-- Servicios -->
+<section class="pt-7 pb-0 bg-gray-200" id="servicios">
+    <div class="container">
+        <div class="row">
+            <h3>Servicios</h3>
+
+            {% for servicio in servicios %}
+            <div class="col-lg-4 col-md-6">
+                <div class="card card-blog card-plain">
+                    <div class="position-relative">
+                        <a class="d-block">
+                            <img src="{{ servicio.imagen.url }}" alt="img-blur-shadow"
+                                class="img-fluid shadow border-radius-lg">
+                        </a>
                     </div>
-                </div>
-                {% endfor %}
-    
-            </div>
-        </div>
-    </section>
-    <!-- End Servicios -->
-
-    <!-- Productos -->
-    <section class="py-5">
-        <div class="container">
-            <div class="row">
-                <h3>Productos</h3>
-                
-                {% for producto in productos %}
-                <div class="col-lg-3 col-sm-6">
-                    <div class="card card-plain card-blog mt-4">
-                        <div class="card-image border-radius-lg position-relative">
-                            <a href="javascript:;">
-                                <div>
-                                    <img class="img border-radius-lg" src="{{ producto.imagen.url }}">
+                    <div class="card-body px-1 pt-3">
+                        <a href="javascript:;">
+                            <h5>
+                                {{ servicio.titulo }}
+                            </h5>
+                        </a>
+                        <p>
+                            {{ servicio.descripcion }}
+                        </p>
+                        <div class="text-center">
+                            <a href="{% url 'home_app:ver-servicio' servicio.slug %}"
+                                class="btn bg-gradient-danger btn-icon" type="button">
+                                <div class="d-flex align-items-center">
+                                    Ver Detalle
                                 </div>
                             </a>
                         </div>
-                        <div class="card-body px-0">
-                            <h5>
-                                <a href="javascript:;"
-                                    class="text-dark font-weight-bold text-decoration-underline-hover">
-                                    {{ producto.nombre }}
-                                </a>
-                            </h5>
-                            <p>
-                                {{ producto.descripcion }}
-                            </p>
 
-                            <div class="text-center">
-                                <a href="{% url 'home_app:ver-producto' producto.id %}" class="btn bg-gradient-danger btn-icon" type="button">
-                                    <div class="d-flex align-items-center">
-                                        Ver Detalle
-                                    </div>
-                                </a>
-                            </div>
-                           
-                        </div>
                     </div>
                 </div>
-                {% endfor %}
             </div>
-        </div>
-    </section>
-    <!-- End Productos -->
+            {% endfor %}
 
-    <!-- Nosotros -->
-    <section class="position-relative">
-        <div class="page-header min-vh-50" style="background-image: url({% static 'assets/img/bg14.jpg' %});">
-            <span class="mask bg-gradient-primary"></span>
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-lg-8 text-center mx-auto">
-                        <h2 class="text-white mb-3">Nosotros</h2>
-                        <p class="lead text-white mb-0">
-                            DM Ingeniería es una empresa joven llena de ideas y con una proyección hacia el futuro enfocada
-                            en la innovación y
-                            calidad de servicio, asi como de nuestro productos. Nuestras soluciones se enfocan en Control,
-                            Automatización, HVAC,
-                            Equipos y Tableros de Bombeo.
+        </div>
+    </div>
+</section>
+<!-- End Servicios -->
+
+<!-- Productos -->
+<section class="pt-7" id="productos">
+    <div class="container">
+        <div class="row">
+            <h3>Productos</h3>
+
+            {% for producto in productos %}
+            <div class="col-lg-3 col-sm-6">
+                <div class="card card-plain card-blog mt-4">
+                    <div class="card-image border-radius-lg position-relative">
+                        <a href="javascript:;">
+                            <div>
+                                <img class="img border-radius-lg" src="{{ producto.imagen.url }}">
+                            </div>
+                        </a>
+                    </div>
+                    <div class="card-body px-0">
+                        <h5>
+                            <a href="javascript:;" class="text-dark font-weight-bold text-decoration-underline-hover">
+                                {{ producto.nombre }}
+                            </a>
+                        </h5>
+                        <p>
+                            {{ producto.descripcion }}
                         </p>
-                        <br>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="container mt-n6 position-relative">
-            <div class="row mt-sm-0 mt-5">
-                <div class="col-md-10 mx-auto">
-                    <div class="row bg-white shadow border-radius-lg">
-                        <div class="col-lg-3 col-md-4 border-right ms-lg-auto">
-                            <div class="p-3 text-center">
-                                <i class="ni ni-world-2 text-info h4 mb-2"></i>
-                                <h6 class="mb-0">Sitio Web</h6>
-                                <p class="text-info mb-0">dmingenieria.com.mx</p>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-4 border-right">
-                            <div class="p-3 text-center">
-                                <i class="fab fa-whatsapp text-info mb-2 h4"></i>
-                                <h6 class="mb-0">Telefono</h6>
-                                <p class="text-info mb-0">477 160 87 67</p>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-4 me-lg-auto">
-                            <div class="p-3 text-center">
-                                <i class="ni ni-email-83 text-info h4 mb-2"></i>
-                                <h6 class="mb-0">Correo</h6>
-                                <p class="text-info mb-0">ventas@dmingenieria.com.mx</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- END Nosotros -->
 
-    <!-- Proveedores -->
-    <div class="py-8">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6 mx-auto text-center">
-                    <h3>Our products are built on top</h3>
-                    <p class="lead">Very nice logos here on this page, you can check more on our social profiles.</p>
+                        <div class="text-center">
+                            <a href="{% url 'home_app:ver-producto' producto.slug %}"
+                                class="btn bg-gradient-danger btn-icon" type="button">
+                                <div class="d-flex align-items-center">
+                                    Ver Detalle
+                                </div>
+                            </a>
+                        </div>
+
+                    </div>
                 </div>
             </div>
-            <div class="row mt-5">
-                <div class="col-lg-2 col-md-4 col-6 mb-4 ms-auto">
-                    <img class="w-100 opacity-7" src="{% static 'assets/img/logos/medium-logos/logo-apple.svg' %}">
-                </div>
-                <div class="col-lg-2 col-md-4 col-6 mb-4">
-                    <img class="w-100 opacity-7" src="{% static 'assets/img/logos/medium-logos/logo-mailchimp.svg' %}">
-                </div>
-                <div class="col-lg-2 col-md-4 col-6 mb-4">
-                    <img class="w-100 opacity-7" src="{% static 'assets/img/logos/medium-logos/logo-behance.svg' %}">
-                </div>
-                <div class="col-lg-2 col-md-4 col-6 mb-4">
-                    <img class="w-100 opacity-7" src="{% static 'assets/img/logos/medium-logos/logo-mailchimp.svg' %}">
-                </div>
-                <div class="col-lg-2 col-md-4 col-6 mb-4 me-auto">
-                    <img class="w-100 opacity-7" src="{% static 'assets/img/logos/medium-logos/logo-nasa.svg' %}">
+            {% endfor %}
+        </div>
+    </div>
+</section>
+<!-- End Productos -->
+
+<!-- Nosotros -->
+<section class="py-6" id="nosotros">
+    <div class="page-header min-vh-50" style="background-image: url({% static 'assets/img/carusel/automatizacion.jpg' %});">
+        <span class="mask bg-gradient-primary"></span>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 text-center mx-auto">
+                    <h2 class="text-white mb-3">Nosotros</h2>
+                    <p class="lead text-white mb-0">
+                        <b>DM Ingeniería</b> es una empresa joven llena de ideas y con una proyección hacia el futuro
+                        enfocada
+                        en la innovación y
+                        calidad de servicio, asi como de nuestro productos. Nuestras soluciones se enfocan en Control,
+                        Automatización, HVAC,
+                        Equipos y Tableros de Bombeo.
+                    </p>
+                    <br>
                 </div>
             </div>
         </div>
     </div>
-    <!-- End Proveedores -->
+    <div class="container mt-n6 position-relative">
+        <div class="row mt-sm-0 mt-5">
+            <div class="col-md-10 mx-auto">
+                <div class="row bg-white shadow border-radius-lg">
+                    <div class="col-lg-3 col-md-4 border-right ms-lg-auto">
+                        <div class="p-3 text-center">
+                            <i class="ni ni-world-2 text-info h4 mb-2"></i>
+                            <h6 class="mb-0">Sitio Web</h6>
+                            <p class="text-info mb-0">dmingenieria.com.mx</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 border-right">
+                        <div class="p-3 text-center">
+                            <i class="fab fa-whatsapp text-info mb-2 h4"></i>
+                            <h6 class="mb-0">Telefono</h6>
+                            <p class="text-info mb-0">477 160 87 67</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 me-lg-auto">
+                        <div class="p-3 text-center">
+                            <i class="ni ni-email-83 text-info h4 mb-2"></i>
+                            <h6 class="mb-0">Correo</h6>
+                            <p class="text-info mb-0">ventas@dmingenieria.com.mx</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- END Nosotros -->
 
-    <!-- Footer -->
-    {% include 'componentes/landing/footer.html' %}
-    <!-- End Footer -->
+<!-- Proveedores -->
+<div class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 mx-auto text-center">
+                <h3>Proveedores</h3>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-lg-2 col-md-4 mb-4">
+                <img class="w-100 opacity-7" src="{% static 'assets/img/proveedores/delta.png' %}">
+            </div>
+            <div class="col-lg-2 col-md-4 mb-4">
+                <img class="w-100 opacity-7" src="{% static 'assets/img/proveedores/siemens.png' %}">
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Proveedores -->
 
-    <!--   Core JS Files   -->
-    <script src="{% static 'assets/js/core/popper.min.js' %}" type="text/javascript"></script>
-    <script src="{% static 'assets/js/core/bootstrap.min.js' %}" type="text/javascript"></script>
-    <script src="{% static 'assets/js/plugins/perfect-scrollbar.min.js' %}"></script>
-    <!--  Plugin for TypedJS, full documentation here: https://github.com/mattboldt/typed.js/ -->
-    <script src="{% static 'assets/js/plugins/typedjs.js' %}"></script>
-    <!--  Plugin for TypedJS, full documentation here: https://github.com/inorganik/CountUp.js -->
-    <script src="{% static 'assets/js/plugins/countup.min.js' %}"></script>
-    <!--  Plugin for Parallax, full documentation here: https://github.com/dixonandmoe/rellax -->
-    <script src="{% static 'assets/js/plugins/rellax.min.js' %}"></script>
-    <!--  Plugin for TiltJS, full documentation here: https://gijsroge.github.io/tilt.js/ -->
-    <script src="{% static 'assets/js/plugins/tilt.min.js' %}"></script>
-    <!--  Plugin for Selectpicker - ChoicesJS, full documentation here: https://github.com/jshjohnson/Choices -->
-    <script src="{% static 'assets/js/plugins/choices.min.js' %}"></script>
-    <!--  Plugin for Parallax, full documentation here: https://github.com/wagerfield/parallax  -->
-    <script src="{% static 'assets/js/plugins/parallax.min.js' %}"></script>
-    <!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
-    <script src="{% static 'assets/js/plugins/nouislider.min.js' %}" type="text/javascript"></script>
-    <!--  Plugin for the GlideJS Carousel, full documentation here: http://kenwheeler.github.io/slick/ -->
-    <script src="{% static 'assets/js/plugins/glidejs.min.js' %}" type="text/javascript"></script>
-    <!--  Plugin for the blob animation -->
-    <script src="{% static 'assets/js/plugins/anime.min.js' %}" type="text/javascript"></script>
-    <!-- Chart JS -->
-    <script src="{% static 'assets/js/plugins/chartjs.min.js' %}"></script>
-    <!-- Control Center foe Now UI Design System: parallax effects, scripts for the example pages etc -->
-    <!--  Google Maps Plugin    -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDTTfWur0PDbZWPr7Pmq8K3jiDp0_xUziI"></script>
+<!-- Cotizar -->
+<section class="py-7 bg-gray-200" id="cotizar">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="card overflow-hidden">
+                    <div class="row">
+                        <div class="col-lg-7">
 
-    <script src="{% static 'assets/js/now-design-system-pro.min.js' %}" type="text/javascript"></script>
-    <!-- <script src="{% static 'assets/js/now-design-system-pro.min.js?v=2.2.0' %}" type="text/javascript"></script> -->
+                            <div class="p-3 text-center">
+                                <h3>Cotizar</h3>
+                            </div>
 
-    <script type="text/javascript">
-        if (document.getElementById('state1')) {
-            const countUp = new CountUp('state1', document.getElementById("state1").getAttribute("countTo"));
-            if (!countUp.error) {
-                countUp.start();
-            } else {
-                console.error(countUp.error);
-            }
-        }
-        if (document.getElementById('state2')) {
-            const countUp1 = new CountUp('state2', document.getElementById("state2").getAttribute("countTo"));
-            if (!countUp1.error) {
-                countUp1.start();
-            } else {
-                console.error(countUp1.error);
-            }
-        }
-        if (document.getElementById('state3')) {
-            const countUp2 = new CountUp('state3', document.getElementById("state3").getAttribute("countTo"));
-            if (!countUp2.error) {
-                countUp2.start();
-            } else {
-                console.error(countUp2.error);
-            };
-        }
+                            <form action="{% url 'ventas_app:cotizaciones' %}" class="p-2" id="contact-form"
+                                method="post">
+                                {% csrf_token %}
+                                <div class="card-body pt-1">
+                                    <div class="row">
+                                        <div class="col-md-12 pe-2 mb-3">
+                                            <label>Nombre</label>
+                                            <input name="nombre" class="form-control" required placeholder="Nombre..."
+                                                type="text">
+                                        </div>
 
-        var el = document.getElementById('navbarPresentationShadow');
-        var distance = 58;
+                                        <div class="col-md-12 pe-2 mb-3">
+                                            <label>Email</label>
+                                            <input name="email" class="form-control" required placeholder="Email..."
+                                                type="text">
+                                        </div>
 
-        function scrollNavbarShadow() {
-            if (this.pageYOffset > distance) {
-                el.classList.remove('shadow-none');
-                el.classList.add('shadow');
-            } else {
-                el.classList.add('shadow-none');
-                el.classList.remove('shadow');
-            }
-        }
+                                        <div class="col-md-12 pe-2 mb-3">
+                                            <div class="form-group mb-0">
+                                                <label>Comentarios</label>
+                                                <textarea name="comentarios" required
+                                                    class="form-control border-radius-lg" id="comentarios" rows="6"
+                                                    placeholder="Comentarios..."></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
 
-        window.addEventListener("scroll", function () {
-            scrollNavbarShadow();
-        });
-    </script>
-    <script>
-        if (document.getElementsByClassName('page-header')) {
-            window.addEventListener('scroll', function () {
-                var scrollPosition = window.pageYOffset;
-                var bgParallax = document.querySelector('.page-header');
-                var limit = bgParallax.offsetTop + bgParallax.offsetHeight;
-                if (scrollPosition > bgParallax.offsetTop && scrollPosition <= limit) {
-                    bgParallax.style.backgroundPositionY = (50 - 10 * scrollPosition / limit * 3) + '%';
-                } else {
-                    bgParallax.style.backgroundPositionY = '50%';
-                }
-            });
-        }
-    </script>
-</body>
-</html>
+                                    <div class="row">
+                                        <div class=" text-center ms-auto">
+                                            <button type="submit" class="btn btn-primary bg-gradient-danger">
+                                                <i class="fa fa-send me-2"></i> Enviar
+                                            </button>
+                                            &nbsp;
+                                            <a href="https://api.whatsapp.com/send?phone=4775643957&text=Hola, Nececito mas informacion!" 
+                                            data-bs-toggle="tooltip" data-bs-placement="top" title="Cotizar con whatsapp"
+                                            type="button"
+                                                class="btn-icon btn bg-gradient-success">
+                                                <span class="btn-inner--icon mr-1"><i class="fab fa-whatsapp"></i></span>
+                                                <span class="btn-inner--text">whatsapp</span>
+                                            </a>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-lg-5 position-relative bg-cover px-0"
+                            style="background-image: url(&#39;{% static 'assets/img/podcast/episode-1.jpeg' %}&#39;)">
+                            <div class="z-index-2 text-center d-flex h-100 w-100 d-flex m-auto justify-content-center">
+                                <div class="mask bg-gradient-danger opacity-9"></div>
+                                <div class="p-5 ps-sm-8 position-relative text-start my-auto">
+                                    <h3 class="text-white">Contacto</h3>
+                                    <p class="text-white opacity-8 mb-4">
+                                        Estamos a sus órdenes para ofrecerle una atención personalizada en cualquier
+                                        duda, comentario o cotización, por
+                                        favor póngase en contacto por cualquiera de nuestros medios de contacto.</p>
+                                    <div class="d-flex p-2 text-white">
+                                        <div>
+                                            <i class="fab fa-whatsapp text-lg"></i>
+                                        </div>
+                                        <div class="ps-3">
+                                            <span class="text-md opacity-8">477 160 87 67</span>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex p-2 text-white">
+                                        <div>
+                                            <i class="fas fa-envelope text-lg"></i>
+                                        </div>
+                                        <div class="ps-3">
+                                            <span class="text-md opacity-8">ventas@dmingenieria.com.mx</span>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex p-2 text-white">
+                                        <div>
+                                            <i class="ni ni-world-2 text-lg"></i>
+                                        </div>
+                                        <div class="ps-3">
+                                            <span class="text-dm opacity-8">dmingenieria.com.mx</span>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</section>
+
+<!-- Footer -->
+{% include 'componentes/landing/footer.html' %}
+<!-- End Footer -->
+
+{% endblock content %}
+
+

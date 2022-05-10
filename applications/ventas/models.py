@@ -104,6 +104,19 @@ class Orden_Venta_Detalle(models.Model):
         ordering = ['venta']
 
 
+class Estados(models.Model):
+
+    clave = models.CharField('Clave', max_length=100, blank=True)
+    nombre = models.CharField('Nombre', max_length=200, blank=True)
+
+    class Meta:
+        verbose_name = 'Estados'
+        verbose_name_plural = 'Estados'
+        ordering = ['nombre']
+
+    def __str__(self):
+        return self.nombre
+
 # @receiver(post_delete, sender=ComprasDet)
 # def detalle_compra_borrar(sender, instance, **kwargs):
 #     id_producto = instance.producto.id

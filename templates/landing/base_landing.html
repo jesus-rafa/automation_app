@@ -1,0 +1,156 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="http://schema.org/WebPage">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="apple-touch-icon" sizes="76x76" href="{% static 'assets/img/apple-icon.png' %}">
+    <!-- <link rel="icon" type="image/png" href="{% static 'assets/img/favicon.png' %}"> -->
+    <link rel="icon" type="image/png" href="{% static 'assets/img/logos/logo-transparente.png' %}">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700,200|Open+Sans+Condensed:700"
+        rel="stylesheet">
+    <!-- Nucleo Icons -->
+    <link href="{% static 'assets/css/nucleo-icons.css' %}" rel="stylesheet" />
+    <link href="{% static 'assets/css/nucleo-svg.css' %}" rel="stylesheet" />
+    <!-- Font Awesome Icons -->
+    <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+    <!-- CSS Files -->
+    <link id="pagestyle" href="{% static 'assets/css/now-design-system-pro.css' %}" rel="stylesheet" />
+
+    <title>{% block title %}{% endblock title %}</title>
+
+    {% block description %}{% endblock description %}
+
+    {% block tags %}{% endblock tags %}
+
+    {% block css %}{% endblock css %}
+
+    <style>
+        #btntop {
+            position: fixed;
+            bottom: 1px;
+            z-index: 999;
+            right: 10px;
+        }
+    </style>
+</head>
+
+<body class="presentation-page">
+
+    {% block content %}
+    {% endblock content %}
+
+    <a href="#inicio" id="btntop" type="button" class=" btn btn-icon-only btn-vimeo bg-gradient-primary">
+        <span class="btn-inner--icon mr-1"><i class="fas fa-angle-up"></i></span>
+    </a>
+
+    <!--   Core JS Files   -->
+    <script src="{% static 'assets/js/core/popper.min.js' %}" type="text/javascript"></script>
+    <script src="{% static 'assets/js/core/bootstrap.min.js' %}" type="text/javascript"></script>
+
+    <script src="{% static 'assets/js/plugins/perfect-scrollbar.min.js' %}"></script>
+    <!--  Plugin for TypedJS, full documentation here: https://github.com/mattboldt/typed.js/ -->
+    <script src="{% static 'assets/js/plugins/typedjs.js' %}"></script>
+    <!--  Plugin for TypedJS, full documentation here: https://github.com/inorganik/CountUp.js -->
+    <script src="{% static 'assets/js/plugins/countup.min.js' %}"></script>
+    <!--  Plugin for Parallax, full documentation here: https://github.com/dixonandmoe/rellax -->
+    <script src="{% static 'assets/js/plugins/rellax.min.js' %}"></script>
+
+    <script src="{% static 'assets/js/plugins/smooth-scroll.min.js' %}"></script>
+
+    <!--  Plugin for TiltJS, full documentation here: https://gijsroge.github.io/tilt.js/ -->
+    <script src="{% static 'assets/js/plugins/tilt.min.js' %}"></script>
+    <!--  Plugin for Selectpicker - ChoicesJS, full documentation here: https://github.com/jshjohnson/Choices -->
+    <script src="{% static 'assets/js/plugins/choices.min.js' %}"></script>
+    <!--  Plugin for Parallax, full documentation here: https://github.com/wagerfield/parallax  -->
+    <script src="{% static 'assets/js/plugins/parallax.min.js' %}"></script>
+    <!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
+    <script src="{% static 'assets/js/plugins/nouislider.min.js' %}" type="text/javascript"></script>
+    <!--  Plugin for the GlideJS Carousel, full documentation here: http://kenwheeler.github.io/slick/ -->
+    <script src="{% static 'assets/js/plugins/glidejs.min.js' %}" type="text/javascript"></script>
+    <!--  Plugin for the blob animation -->
+    <script src="{% static 'assets/js/plugins/anime.min.js' %}" type="text/javascript"></script>
+    <!-- Chart JS -->
+    <script src="{% static 'assets/js/plugins/chartjs.min.js' %}"></script>
+    <!-- Control Center foe Now UI Design System: parallax effects, scripts for the example pages etc -->
+    <!--  Google Maps Plugin    -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDTTfWur0PDbZWPr7Pmq8K3jiDp0_xUziI"></script>
+
+    <script src="{% static 'assets/js/now-design-system-pro.min.js' %}" type="text/javascript"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    {% block js %}{% endblock js %}
+
+    <script type="text/javascript">
+        if (document.getElementById('state1')) {
+            const countUp = new CountUp('state1', document.getElementById("state1").getAttribute("countTo"));
+            if (!countUp.error) {
+                countUp.start();
+            } else {
+                console.error(countUp.error);
+            }
+        }
+        if (document.getElementById('state2')) {
+            const countUp1 = new CountUp('state2', document.getElementById("state2").getAttribute("countTo"));
+            if (!countUp1.error) {
+                countUp1.start();
+            } else {
+                console.error(countUp1.error);
+            }
+        }
+        if (document.getElementById('state3')) {
+            const countUp2 = new CountUp('state3', document.getElementById("state3").getAttribute("countTo"));
+            if (!countUp2.error) {
+                countUp2.start();
+            } else {
+                console.error(countUp2.error);
+            };
+        }
+
+        var el = document.getElementById('navbarPresentationShadow');
+        var distance = 58;
+
+        function scrollNavbarShadow() {
+            if (this.pageYOffset > distance) {
+                el.classList.remove('shadow-none');
+                el.classList.add('shadow');
+            } else {
+                el.classList.add('shadow-none');
+                el.classList.remove('shadow');
+            }
+        }
+
+        window.addEventListener("scroll", function () {
+            scrollNavbarShadow();
+        });
+    </script>
+    <script>
+        if (document.getElementsByClassName('page-header')) {
+            window.addEventListener('scroll', function () {
+                var scrollPosition = window.pageYOffset;
+                var bgParallax = document.querySelector('.page-header');
+                var limit = bgParallax.offsetTop + bgParallax.offsetHeight;
+                if (scrollPosition > bgParallax.offsetTop && scrollPosition <= limit) {
+                    bgParallax.style.backgroundPositionY = (50 - 10 * scrollPosition / limit * 3) + '%';
+                } else {
+                    bgParallax.style.backgroundPositionY = '50%';
+                }
+            });
+        }
+    </script>
+    <script>
+        $(document).ready(function () {
+
+            $('.navbar-nav>li>a').on('click', function () {
+                $('.navbar-collapse').collapse('hide');
+            });
+
+        });
+    </script>
+
+</body>
+
+</html>

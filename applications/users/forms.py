@@ -56,12 +56,11 @@ class UserForm(forms.ModelForm):
 
 
 class LoginForm(forms.Form):
-    email = forms.CharField(
+    username = forms.CharField(
         label='Email',
         required=True,
-        widget=forms.TextInput(
+        widget=forms.EmailInput(
             attrs={
-                'placeholder': 'Usuario',
                 'class': 'web form-control',
                 'placeholder': 'Email',
                 'aria-label': 'Email'
@@ -74,7 +73,6 @@ class LoginForm(forms.Form):
         required=True,
         widget=forms.PasswordInput(
             attrs={
-                'placeholder': 'Contraseña',
                 'class': 'Password form-control',
                 'placeholder': 'Contraseña',
                 'aria-label': 'Password'
@@ -84,11 +82,58 @@ class LoginForm(forms.Form):
 
     def clean(self):
         cleaned_data = super(LoginForm, self).clean()
-        email = self.cleaned_data['email']
+        username = self.cleaned_data['username']
         password = self.cleaned_data['password']
 
-        if not authenticate(email=email, password=password):
+        if not authenticate(email=username, password=password):
             raise forms.ValidationError(
-                'Los datos del usuario no son correctos')
+                'Los datos del usuario no son correctos'
+            )
 
         return self.cleaned_data
+
+
+class UserRegisterForm(forms.ModelForm):
+
+    password1 = forms.CharField(
+        label='Contraseña',
+        required=True,
+        widget=forms.PasswordInput(
+            attrs={
+                'class': 'web form-control',
+                'placeholder': 'Contraseña',
+                'aria-label': 'password'
+            }
+        )
+    )
+    password2 = forms.CharField(
+        label='Contraseña',
+        required=True,
+        widget=forms.PasswordInput(
+            attrs={
+                'class': 'web form-control',
+                'placeholder': 'Confirmar Contraseña',
+                'aria-label': 'password'
+            }
+        )
+    )
+
+    class Meta:
+        """Meta definition for Userform."""
+
+        model = User
+        fields = (
+            'username',
+        )
+        widgets = {
+            'username': forms.EmailInput(
+                attrs={
+                    'class': 'web form-control',
+                    'placeholder': 'Email',
+                }
+            ),
+        }
+
+    def clean_password2(self):
+        if self.cleaned_data['password1'] != self.cleaned_data['password2']:
+            self.add_error('password2', 'Las contraseñas no son iguales')

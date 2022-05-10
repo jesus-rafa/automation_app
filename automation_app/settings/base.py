@@ -30,6 +30,7 @@ DJANGO_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.humanize',
+    'django.contrib.sitemaps',
     'django.contrib.sites',  # <-
 )
 
@@ -61,7 +62,9 @@ AUTHENTICATION_BACKENDS = (
 )
 
 SITE_ID = 2
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/panel-cliente'
+LOGOUT_REDIRECT_URL = '/'
+
 
 SOCIALACCOUNT_PROVIDERS = {
     'google': {

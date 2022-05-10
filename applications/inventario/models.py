@@ -1,5 +1,10 @@
+from datetime import datetime, timedelta
+
 from ckeditor_uploader.fields import RichTextUploadingField
 from django.db import models
+from django.template.defaultfilters import slugify
+from django.urls import reverse_lazy
+from model_utils.models import TimeStampedModel
 
 
 class Caracteristicas(models.Model):
@@ -101,7 +106,7 @@ class Unidad_Medida(models.Model):
         ordering = ['unidad']
 
 
-class Servicios(models.Model):
+class Servicios(TimeStampedModel):
     titulo = models.CharField(
         'Título',
         max_length=200,
@@ -117,6 +122,12 @@ class Servicios(models.Model):
         max_length=400,
         blank=True
     )
+    estatus = models.CharField(
+        'Estatus',
+        max_length=100,
+        blank=True,
+        null=True
+    )
     descripcion = models.CharField(
         'Descripcion',
         max_length=200,
@@ -126,18 +137,42 @@ class Servicios(models.Model):
         'imagen', upload_to="servicios",
         blank=True
     )
+    slug = models.SlugField(editable=False, max_length=300)
     caracteristicas = models.ManyToManyField(Caracteristicas, blank=True)
-
-    def __str__(self):
-        return self.titulo
 
     class Meta:
         verbose_name = "Servicios"
         verbose_name_plural = "Servicios"
         ordering = ['titulo']
 
+    def __str__(self):
+        return self.titulo
 
-class Producto(models.Model):
+    def get_absolute_url(self):
+        return reverse_lazy(
+            'home_app:ver-servicio',
+            kwargs={
+                'slug': self.slug
+            }
+        )
+
+    def save(self, *args, **kwargs):
+        # calculamos el total de segundos de la hora actual
+        now = datetime.now()
+        total_time = timedelta(
+            hours=now.hour,
+            minutes=now.minute,
+            seconds=now.second
+        )
+        seconds = int(total_time.total_seconds())
+        slug_unique = '%s %s' % (self.titulo, str(seconds))
+
+        self.slug = slugify(slug_unique)
+
+        super(Servicios, self).save(*args, **kwargs)
+
+
+class Producto(TimeStampedModel):
     codigo = models.CharField(
         'Codigo',
         max_length=200,
@@ -180,20 +215,51 @@ class Producto(models.Model):
         'Imagen', upload_to="productos",
         blank=True
     )
+    imagen2 = models.ImageField(
+        'Imagen2', upload_to="productos",
+        blank=True
+    )
+    imagen3 = models.ImageField(
+        'Imagen3', upload_to="productos",
+        blank=True
+    )
+    slug = models.SlugField(editable=False, max_length=300)
     caracteristicas = models.ManyToManyField(Caracteristicas, blank=True)
-
-    def __str__(self):
-        return '{}'.format(self.codigo)
-
-    def save(self):
-        self.codigo = self.codigo.upper()
-        self.nombre = self.nombre.upper()
-        super(Producto, self).save()
 
     class Meta:
         verbose_name = "Productos"
         verbose_name_plural = "Productos"
-        ordering = ['codigo']
+        ordering = ['nombre']
+
+    def __str__(self):
+        if self.codigo:
+            return '{}'.format(self.codigo + '-' + self.nombre)
+        if self.nombre:
+            return '{}'.format(self.nombre)
+
+    def get_absolute_url(self):
+        return reverse_lazy(
+            'home_app:ver-producto',
+            kwargs={
+                'slug': self.slug
+            }
+        )
+
+    def save(self, *args, **kwargs):
+        # calculamos el total de segundos de la hora actual
+        now = datetime.now()
+        total_time = timedelta(
+            hours=now.hour,
+            minutes=now.minute,
+            seconds=now.second
+        )
+        seconds = int(total_time.total_seconds())
+        slug_unique = '%s %s' % (self.nombre, str(seconds))
+
+        self.slug = slugify(slug_unique)
+        self.codigo = self.codigo.upper()
+
+        super(Producto, self).save(*args, **kwargs)
 
 
 class Estructura_Producto(models.Model):
@@ -216,6 +282,11 @@ class Estructura_Producto(models.Model):
 class Especificaciones(models.Model):
     producto = models.ForeignKey(
         Producto, on_delete=models.CASCADE, related_name="especificaciones"
+    )
+    agrupador = models.CharField(
+        'Agrupador',
+        max_length=100,
+        blank=True
     )
     hp = models.IntegerField(default=0)
     fases_x_volts = models.CharField(

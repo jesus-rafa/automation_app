@@ -1,0 +1,205 @@
+{% extends "landing/base_landing.html" %}
+{% load static %}
+
+{% block title %}
+{{ servicio.titulo }}
+{% endblock title %}
+
+{% block description %}
+<meta name="description" content="{{ servicio.descripcion|truncatechars:100 }}">
+{% endblock description %}
+
+{% block tags %}
+<meta name="keywords" content="{% for tag in servicio.caracteristicas.all %}{{ tag.caracteristica }},{% endfor %}">
+{% endblock tags %}
+
+{% block content %}
+
+{% if messages %}
+{% for message in messages %}
+<div style="z-index: 999; position: relative;"
+    class="alert alert-success alert-dismissible text-white text-center fade show" role="alert">
+    {{ message|safe }}
+    <button type="button" class="btn-close text-lg py-3 opacity-10" data-bs-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+{% endfor %}
+{% endif %}
+
+<!-- Navbar -->
+{% include 'componentes/landing/menu.html' %}
+<!-- End Navbar -->
+
+<!-- Ver Producto -->
+<section class="py-8 bg-gray-200" id="inicio">
+    <div class="container">
+        <div class="row">
+            <div class="row">
+                <div class="col-lg-6 col-md-6">
+                    <h3>Servicios</h3>
+                   
+                </div>
+                <div class="col-lg-6 col-md-6 ">
+                    <div class="text-end d-lg-block d-none">
+                        <a onclick="location.href = document.referrer" class="btn bg-gradient-primary btn-icon btn-sm">
+                            <i class="fa fa-reply"></i> Volver
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-12">
+                
+                <div class="row">
+                    <div class="col-lg-5 justify-content-center d-flex flex-column">
+                        <div class="card rounded-3">
+                            <div class="d-block blur-shadow-image">
+                                <img src="{{ servicio.imagen.url }}" alt="img-blur-shadow-blog-2"
+                                    class="img-fluid shadow rounded-3">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-7 justify-content-center d-flex flex-column ps-lg-5 pt-lg-0 pt-3">
+                        <!-- <h6 class="category text-info mt-3">Consultar tiempo de entrega</h6> -->
+                        <h3>
+
+                            <a href="javascript:;" class="text-dark text-decoration-underline-hover">
+                                {{ servicio.titulo }}
+                            </a>
+                        </h3>
+
+                        <div class="col-lg-3">
+                            <span class="badge bg-gradient-success">{{ servicio.estatus }}</span>
+                        </div>
+
+                        <p>
+                        <h6><strong>Descripcion:</strong></h6>
+                        {{ servicio.contenido }}
+                        </p>
+
+                        <p>
+                        <h6><strong>Caracteristicas:</strong></h6>
+                        {% for tag in servicio.caracteristicas.all %}
+
+                        <div class="row">
+                            * {{ tag.caracteristica }}
+                        </div>
+
+                        {% endfor %}
+                        </p>
+
+                        <div class="text-center">
+                            <button class="btn bg-gradient-danger btn-icon" type="button" data-bs-toggle="modal"
+                                data-bs-target="#exampleModalSignup">
+                                <div class="d-flex align-items-center">
+                                    Cotizar
+                                </div>
+                            </button>
+                            &nbsp;
+                            <a href="https://api.whatsapp.com/send?phone=4775643957&text=Hola, Nececito mas informacion!"
+                            data-bs-toggle="tooltip" data-bs-placement="top" title="Cotizar con whatsapp"
+    
+                            type="button" class="btn-icon btn bg-gradient-success">
+                                <span class="btn-inner--icon mr-1"><i class="fab fa-whatsapp"></i></span>
+                                <span class="btn-inner--text">whatsapp</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="modal fade" id="exampleModalSignup" tabindex="-1" aria-labelledby="exampleModalSignup"
+                    aria-hidden="true">
+                    <div class="modal-dialog modal-danger modal-dialog-centered modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-body p-0">
+                                <div class="card card-plain">
+                                    <div class="card-header pb-0 text-start">
+                                        <h3 class="font-weight-bold">Cotizar Servicio</h3>
+                                    </div>
+                                    <div class="card-body pb-3">
+                                        <form action="{% url 'ventas_app:cotizar-servicio' %}"
+                                            role="form text-start" method="post">{% csrf_token %}
+                                            {{ form.nombre.label }}
+                                            <div class="input-group mb-3">
+                                                {{ form.nombre }}
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    {{ form.email.label }}
+                                                    <div class="input-group mb-3">
+                                                        {{ form.email }}
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+
+                                                    {{ form.telefono.label }}
+                                                    <div class="input-group mb-3">
+                                                        {{ form.telefono }}
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    {{ form.nombre_empresa.label }}
+                                                    <div class="input-group mb-3">
+                                                        {{ form.nombre_empresa }}
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    {{ form.giro_empresa.label }}
+                                                    <div class="input-group mb-3">
+                                                        {{ form.giro_empresa }}
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            {{ form.estado.label }}
+                                            <div class="input-group mb-3">
+                                                {{ form.estado }}
+                                            </div>
+
+                                            {{ form.servicio.label }}
+                                            <div class="input-group mb-3">
+                                                {{ form.servicio }}
+                                            </div>
+
+                                            {{ form.comentarios.label }}
+                                            <div class="input-group mb-3">
+                                                {{ form.comentarios }}
+                                            </div>
+
+                                            <div class="text-center">
+                                                <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                                <button type="submit" class="btn bg-gradient-danger"> <i class="fa fa-send me-2"></i> Enviar</button>
+                                            
+                                            
+                                            
+                                            </div>
+                                        </form>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- Footer -->
+{% include 'componentes/landing/footer.html' %}
+<!-- End Footer -->
+
+{% endblock content %}
+

@@ -4,9 +4,8 @@ from .base import *
 DEBUG = True
 
 ALLOWED_HOSTS = []
-#ALLOWED_HOSTS = ['*']
+# ALLOWED_HOSTS = ['*']
 #ALLOWED_HOSTS = ['localhost', '127.0.0.1']
-
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
@@ -53,9 +52,14 @@ CKEDITOR_CONFIGS = {
 
 # EMAIL SETTINGS
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+# EMAIL_HOST = 'smtp.hostinger.com'
+# EMAIT_PORT = 587
+# EMAIL_USE_SSL = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIT_PORT = 587
 EMAIL_USE_TLS = True
+
 EMAIL_HOST_USER = get_secret('EMAIL')
 EMAIL_HOST_PASSWORD = get_secret('PASS_EMAIL')
 

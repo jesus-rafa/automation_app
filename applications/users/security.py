@@ -15,7 +15,7 @@ def get_access(request):
         for url in page.urls.filter(is_active=True, is_visible=True).prefetch_related('get_urls').order_by('sort'):
             menu.append(url)
 
-    app = App.objects.get(dominio = 'goevents.tech')
+    app = App.objects.get(dominio = 'dmingenieria.com.mx')
 
     return {
         'menu': menu,

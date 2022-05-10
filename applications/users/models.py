@@ -12,7 +12,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         ('O', 'Otros'),
     )
 
-    email = models.EmailField(unique=True)
+    username = models.EmailField(unique=True)
     names = models.CharField('Nombres', max_length=100, blank=True, null=True)
     last_names = models.CharField(
         'Apellidos', max_length=200, blank=True, null=True)
@@ -36,7 +36,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField(default=True)
     is_active = models.BooleanField(default=True)
 
-    USERNAME_FIELD = 'email'
+    USERNAME_FIELD = 'username'
 
     objects = UserManager()
 
@@ -51,3 +51,19 @@ class User(AbstractBaseUser, PermissionsMixin):
             return self.names[:1].upper() + self.last_names[:1].upper()
         else:
             return ''
+
+
+class Correos(models.Model):
+    correo = models.EmailField('Correo', unique=True)
+    nombre = models.CharField('Nombre', max_length=200, blank=True)
+    is_cotizacion = models.BooleanField(default=False)
+    is_venta = models.BooleanField(default=False)
+
+    class Meta:
+        verbose_name = 'Correos'
+        verbose_name_plural = 'Correos'
+        ordering = ['correo']
+
+    def __str__(self):
+        return self.correo
+
