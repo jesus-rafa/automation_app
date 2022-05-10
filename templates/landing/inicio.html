@@ -1,0 +1,307 @@
+{% extends "landing/base_landing.html" %}
+{% load static %}
+
+{% block title %}
+Automatización Industrial | DM Ingenieria
+{% endblock title %}
+
+{% block description %}
+<meta name="description" content="Automatización Industrial, Tableros de Control, HVAC">
+{% endblock description %}
+
+{% block tags %}
+<meta name="keywords" content="Automatización Industrial, Tableros de Control, HVAC">
+{% endblock tags %}
+
+{% block content %}
+
+{% if messages %}
+{% for message in messages %}
+<div style="z-index: 999; position: relative;"
+    class="alert alert-success alert-dismissible text-white text-center fade show" role="alert">
+    {{ message|safe }}
+    <button type="button" class="btn-close text-lg py-3 opacity-10" data-bs-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+{% endfor %}
+{% endif %}
+
+<!-- Navbar -->
+{% include 'componentes/landing/menu.html' %}
+<!-- End Navbar -->
+
+<!-- Header -->
+{% include 'componentes/landing/header.html' %}
+<!-- End Header -->
+
+<!-- Servicios -->
+<section class="pt-7 pb-0 bg-gray-200" id="servicios">
+    <div class="container">
+        <div class="row">
+            <h3>Servicios</h3>
+
+            {% for servicio in servicios %}
+            <div class="col-lg-4 col-md-6">
+                <div class="card card-blog card-plain">
+                    <div class="position-relative">
+                        <a class="d-block">
+                            <img src="{{ servicio.imagen.url }}" alt="img-blur-shadow"
+                                class="img-fluid shadow border-radius-lg">
+                        </a>
+                    </div>
+                    <div class="card-body px-1 pt-3">
+                        <a href="javascript:;">
+                            <h5>
+                                {{ servicio.titulo }}
+                            </h5>
+                        </a>
+                        <p>
+                            {{ servicio.descripcion }}
+                        </p>
+                        <div class="text-center">
+                            <a href="{% url 'home_app:ver-servicio' servicio.slug %}"
+                                class="btn bg-gradient-danger btn-icon" type="button">
+                                <div class="d-flex align-items-center">
+                                    Ver Detalle
+                                </div>
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
+</section>
+<!-- End Servicios -->
+
+<!-- Productos -->
+<section class="pt-7" id="productos">
+    <div class="container">
+        <div class="row">
+            <h3>Productos</h3>
+
+            {% for producto in productos %}
+            <div class="col-lg-3 col-sm-6">
+                <div class="card card-plain card-blog mt-4">
+                    <div class="card-image border-radius-lg position-relative">
+                        <a href="javascript:;">
+                            <div>
+                                <img class="img border-radius-lg" src="{{ producto.imagen.url }}">
+                            </div>
+                        </a>
+                    </div>
+                    <div class="card-body px-0">
+                        <h5>
+                            <a href="javascript:;" class="text-dark font-weight-bold text-decoration-underline-hover">
+                                {{ producto.nombre }}
+                            </a>
+                        </h5>
+                        <p>
+                            {{ producto.descripcion }}
+                        </p>
+
+                        <div class="text-center">
+                            <a href="{% url 'home_app:ver-producto' producto.slug %}"
+                                class="btn bg-gradient-danger btn-icon" type="button">
+                                <div class="d-flex align-items-center">
+                                    Ver Detalle
+                                </div>
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+<!-- End Productos -->
+
+<!-- Nosotros -->
+<section class="py-6" id="nosotros">
+    <div class="page-header min-vh-50" style="background-image: url({% static 'assets/img/carusel/automatizacion.jpg' %});">
+        <span class="mask bg-gradient-primary"></span>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 text-center mx-auto">
+                    <h2 class="text-white mb-3">Nosotros</h2>
+                    <p class="lead text-white mb-0">
+                        <b>DM Ingeniería</b> es una empresa joven llena de ideas y con una proyección hacia el futuro
+                        enfocada
+                        en la innovación y
+                        calidad de servicio, asi como de nuestro productos. Nuestras soluciones se enfocan en Control,
+                        Automatización, HVAC,
+                        Equipos y Tableros de Bombeo.
+                    </p>
+                    <br>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container mt-n6 position-relative">
+        <div class="row mt-sm-0 mt-5">
+            <div class="col-md-10 mx-auto">
+                <div class="row bg-white shadow border-radius-lg">
+                    <div class="col-lg-3 col-md-4 border-right ms-lg-auto">
+                        <div class="p-3 text-center">
+                            <i class="ni ni-world-2 text-info h4 mb-2"></i>
+                            <h6 class="mb-0">Sitio Web</h6>
+                            <p class="text-info mb-0">dmingenieria.com.mx</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 border-right">
+                        <div class="p-3 text-center">
+                            <i class="fab fa-whatsapp text-info mb-2 h4"></i>
+                            <h6 class="mb-0">Telefono</h6>
+                            <p class="text-info mb-0">477 160 87 67</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 me-lg-auto">
+                        <div class="p-3 text-center">
+                            <i class="ni ni-email-83 text-info h4 mb-2"></i>
+                            <h6 class="mb-0">Correo</h6>
+                            <p class="text-info mb-0">ventas@dmingenieria.com.mx</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- END Nosotros -->
+
+<!-- Proveedores -->
+<div class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 mx-auto text-center">
+                <h3>Proveedores</h3>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-lg-2 col-md-4 mb-4">
+                <img class="w-100 opacity-7" src="{% static 'assets/img/proveedores/delta.png' %}">
+            </div>
+            <div class="col-lg-2 col-md-4 mb-4">
+                <img class="w-100 opacity-7" src="{% static 'assets/img/proveedores/siemens.png' %}">
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Proveedores -->
+
+<!-- Cotizar -->
+<section class="py-7 bg-gray-200" id="cotizar">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="card overflow-hidden">
+                    <div class="row">
+                        <div class="col-lg-7">
+
+                            <div class="p-3 text-center">
+                                <h3>Cotizar</h3>
+                            </div>
+
+                            <form action="{% url 'ventas_app:cotizaciones' %}" class="p-2" id="contact-form"
+                                method="post">
+                                {% csrf_token %}
+                                <div class="card-body pt-1">
+                                    <div class="row">
+                                        <div class="col-md-12 pe-2 mb-3">
+                                            <label>Nombre</label>
+                                            <input name="nombre" class="form-control" required placeholder="Nombre..."
+                                                type="text">
+                                        </div>
+
+                                        <div class="col-md-12 pe-2 mb-3">
+                                            <label>Email</label>
+                                            <input name="email" class="form-control" required placeholder="Email..."
+                                                type="text">
+                                        </div>
+
+                                        <div class="col-md-12 pe-2 mb-3">
+                                            <div class="form-group mb-0">
+                                                <label>Comentarios</label>
+                                                <textarea name="comentarios" required
+                                                    class="form-control border-radius-lg" id="comentarios" rows="6"
+                                                    placeholder="Comentarios..."></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class=" text-center ms-auto">
+                                            <button type="submit" class="btn btn-primary bg-gradient-danger">
+                                                <i class="fa fa-send me-2"></i> Enviar
+                                            </button>
+                                            &nbsp;
+                                            <a href="https://api.whatsapp.com/send?phone=4775643957&text=Hola, Nececito mas informacion!" 
+                                            data-bs-toggle="tooltip" data-bs-placement="top" title="Cotizar con whatsapp"
+                                            type="button"
+                                                class="btn-icon btn bg-gradient-success">
+                                                <span class="btn-inner--icon mr-1"><i class="fab fa-whatsapp"></i></span>
+                                                <span class="btn-inner--text">whatsapp</span>
+                                            </a>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-lg-5 position-relative bg-cover px-0"
+                            style="background-image: url(&#39;{% static 'assets/img/podcast/episode-1.jpeg' %}&#39;)">
+                            <div class="z-index-2 text-center d-flex h-100 w-100 d-flex m-auto justify-content-center">
+                                <div class="mask bg-gradient-danger opacity-9"></div>
+                                <div class="p-5 ps-sm-8 position-relative text-start my-auto">
+                                    <h3 class="text-white">Contacto</h3>
+                                    <p class="text-white opacity-8 mb-4">
+                                        Estamos a sus órdenes para ofrecerle una atención personalizada en cualquier
+                                        duda, comentario o cotización, por
+                                        favor póngase en contacto por cualquiera de nuestros medios de contacto.</p>
+                                    <div class="d-flex p-2 text-white">
+                                        <div>
+                                            <i class="fab fa-whatsapp text-lg"></i>
+                                        </div>
+                                        <div class="ps-3">
+                                            <span class="text-md opacity-8">477 160 87 67</span>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex p-2 text-white">
+                                        <div>
+                                            <i class="fas fa-envelope text-lg"></i>
+                                        </div>
+                                        <div class="ps-3">
+                                            <span class="text-md opacity-8">ventas@dmingenieria.com.mx</span>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex p-2 text-white">
+                                        <div>
+                                            <i class="ni ni-world-2 text-lg"></i>
+                                        </div>
+                                        <div class="ps-3">
+                                            <span class="text-dm opacity-8">dmingenieria.com.mx</span>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</section>
+
+<!-- Footer -->
+{% include 'componentes/landing/footer.html' %}
+<!-- End Footer -->
+
+{% endblock content %}
+
+

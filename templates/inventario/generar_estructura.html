@@ -1,0 +1,282 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} Generar Estructura {% endblock title %}
+
+{% block head %}
+<link href="{% static 'assets/libs/datatables.net-bs5/css/dataTables.bootstrap5.min.css' %}" rel="stylesheet" type="text/css" />
+<link href="{% static 'assets/libs/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css' %}" rel="stylesheet" type="text/css" />
+<link href="{% static 'assets/libs/datatables.net-buttons-bs5/css/buttons.bootstrap5.min.css' %}" rel="stylesheet" type="text/css" />
+{% endblock head %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box">
+            <div class="page-title-right">
+
+            </div>
+            <h4 class="page-title">Generar Estructura</h4>
+        </div>
+    </div>
+</div>
+ 
+<div id="app">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="pt-3 pb-4">
+
+                <div class="input-group">
+                    <span class="input-group-text">Producto</span>
+                    <input type="text" class="form-control" v-model="buscar_producto" placeholder="Buscar...">
+                </div>
+
+                <div v-if="productos.length > 0">
+                    <div class="card">
+                        <div class="card-body">
+
+                            <ul class="list-group" v-for="producto in productos">
+                                <button type="button" class="list-group-item list-group-item-action"><i
+                                        class="fe-grid me-1"></i> ${ producto.codigo } - ${ producto.descripcion }</button>
+                            </ul>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="row" v-if="show == true">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="border p-3 mt-4 mt-lg-0 rounded">
+                                <h4 class="header-title mb-3 text-center">${ lb_componente }</h4>
+                                
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="mb-2">
+                                            <input type="text" class="form-control" v-model="buscar_componente" placeholder="Buscar...">
+
+                                        </div>
+
+                                        <div v-if="componentes.length > 0">
+                                            <div class="card">
+                                                <div class="card-body">
+                        
+                                                    <ul class="list-group" v-for="producto in componentes">
+                                                        <button type="button" class="list-group-item list-group-item-action"><i
+                                                                class="fe-grid me-1"></i> ${ producto.codigo } - ${ producto.descripcion }</button>
+                                                    </ul>
+                        
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="mb-2">
+                                            <div class="text-center">
+                                                <button v-if="loading == false" type="button" @click=""
+                                                    class="btn btn-primary rounded-pill waves-effect waves-light btn-sm">Guardar</button>
+                                                
+                                                <button v-else class="btn btn-primary rounded-pill waves-effect waves-light btn-sm" type="button" disabled>
+                                                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                                    Guardando
+                                                </button>
+                                            </div>
+                                
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                
+                            </div>
+    
+    
+                        </div> <!-- end col -->
+
+                        <div class="col-lg-8">
+                            <div class="table-responsive">
+                                <table class="table table-borderless table-nowrap table-centered mb-0">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>Componente</th>
+                                            <th>Cantidad</th>
+                                            <th style="width: 50px;"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr v-for="producto in componentes">
+                                            <td>
+                                                <i class="fe-layers me-1"></i>
+                                                
+                                                <p class="m-0 d-inline-block align-middle font-16">
+                                                    <a href="#"
+                                                        class="text-reset font-family-secondary">${ producto.codigo }</a>
+                                                    <br>
+                                                    <small class="me-2"><b>Descripcion:</b> ${ producto.descripcion } </small>
+                                                   
+                                                </p>
+                                            </td>
+    
+                                            <td>
+                                                <input type="number" min="1" value="5" class="form-control"
+                                                    placeholder="Qty" style="width: 90px;">
+                                            </td>
+    
+                                            <td>
+                                                <!-- <a href="javascript:void(0);" class="action-icon"> <i
+                                                        class="mdi mdi-pencil"></i></a> -->
+    
+                                                <a href="javascript:void(0);" class="action-icon"> <i
+                                                        class="mdi mdi-delete"></i></a>
+                                            </td>
+                                        </tr>
+    
+                                    </tbody>
+                                </table>
+                            </div> <!-- end table-responsive-->
+    
+                        </div>
+                        <!-- end col -->
+    
+                        
+    
+                    </div> <!-- end row -->
+                </div> <!-- end card-body-->
+            </div> <!-- end card-->
+        </div> <!-- end col -->
+    </div>
+
+
+</div>
+
+{% endblock content %}
+
+{% block extrajs %}
+<script src="{% static 'vue/js/vue.js' %}"></script>
+<!-- <script src="{% static 'vue/api/productos.js' %}"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+
+<script type="text/javascript">
+    new Vue({
+      el: '#app',
+      delimiters: ['${','}'],
+      data: {
+        API_URL: "http://127.0.0.1:8000",
+        loading: false,
+        message: null,
+        show: true,
+        buscar_producto: null,
+        buscar_componente: null,
+        lb_componente: "Agregar Componente",
+        productos: [],
+        componentes: [],
+        item: {
+            'producto': 0,
+            'padre': 0,
+            'cantidad': 0
+        }
+      },
+    //   mounted: function() {
+    //     //this.getProductos();
+    //   },
+      watch: {
+        buscar_producto: function(val) {
+            this.getProductos(val);
+        },
+        buscar_componente: function(val) {
+            this.getComponentes(val);
+        }
+      },
+      methods: {
+        getProductos(kword) {
+            axios.get(this.API_URL + "/api/inventario/lista-productos/" + kword).then(response => {
+                this.productos = response.data;
+
+                this.show = true;
+                
+            }).catch(error => {
+                console.log(error);
+            });
+        },
+        getComponentes(kword) {
+            axios.get(this.API_URL + "/api/inventario/lista-componentes/" + kword).then(response => {
+                this.componentes = response.data;
+            }).catch(error => {
+                console.log(error);
+            });
+        }
+        // BuscarProductos(val) {
+
+        //     apiProductos.lista_productos(val).then(response => {
+        //         this.productos = response.data;
+
+        //         console.log(this.productos);
+        //     });
+        // },
+    
+        // addFile: function() {
+        //     let formData = new FormData();
+
+        //     console.log(this.fecha_inicio);
+
+        //     formData.append('alias', this.alias);
+        //     formData.append('nombre', this.nombre);
+        //     formData.append('descripcion', this.descripcion);
+        //     formData.append('fecha_inicio', this.fecha_inicio);
+        //     formData.append('estatus', true);
+
+        //     if(this.archivo!==''||this.archivo!==null){
+        //         formData.append('archivo', this.archivo);
+        //     }
+
+        //     this.$http.post('/api/modelos/', formData, {headers: {'Content-Type': 'multipart/form-data'}})
+        //       .then((response) => {
+        //         this.loading = false;
+        //         this.getModels();
+        //         $("#addModelModal").modal('hide');
+
+        //         Swal.fire({
+        //             position: "top-center",
+        //             icon: "success",
+        //             title: 'Guardado Correctamente',
+        //             showConfirmButton: !1,
+        //         });
+
+        //         this.$refs.archivo_new.value=null;
+        //         this.archivo_new = '';
+        //         this.archivo = '';
+        //         this.alias = '';
+        //         this.nombre = '';
+        //         this.descripcion = '';
+        //         this.fecha_inicio = '';
+
+        //       })
+        //       .catch((err) => {
+        //         console.log(err);
+        //       })
+        // deleteModel: function(id) {
+        //   //this.loading = false;
+        //   this.$http.delete(`/api/modelos/${id}/`)
+        //       .then((response) => {
+        //         //this.loading = false;
+        //         this.getModels();
+        //       })
+        //       .catch((err) => {
+        //         //this.loading = false;
+        //         console.log(err);
+        //       })
+        // }
+      }
+    });
+  </script>
+{% endblock extrajs %}

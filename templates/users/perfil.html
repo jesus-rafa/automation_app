@@ -1,0 +1,132 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} Perfil {% endblock title %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box">
+            <h4 class="page-title">Perfil</h4>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-lg-4 col-xl-4">
+        <div class="card text-center">
+            <div class="card-body">
+
+                {% if perfil.avatar %}
+                <img src="{{ perfil.avatar.url }}" alt="user-image" height="100" class="rounded-circle">
+                {% else %}
+                <img src="{% static 'assets/images/user_group.png' %}" alt="user-image" height="100"
+                    class="rounded-circle">
+                {% endif %}
+
+                <div class="avatar-sm">
+                    <span class="avatar-title bg-soft-secondary text-secondary font-20 rounded-circle">
+                        {{ perfil.get_initials }}
+                    </span>
+                </div>
+
+                <h4 class="mb-0">{{ perfil.get_full_name }}</h4><br>
+
+                {% for group in request.user.groups.all %}
+
+                <p class="text-muted mb-2 font-13"><strong> <span class="ms-2">@{{ group }}</span></strong></p>
+
+                {% endfor %}
+
+
+                <div class="text-start mt-3">
+
+                    <p class="text-muted mb-2 font-13"><strong>Email :</strong> <span class="ms-2">
+                        {{ perfil.email }}</span></p>
+
+                    <p class="text-muted mb-2 font-13"><strong>Telefono :</strong><span class="ms-2">
+                        {{ perfil.telefono }}</span></p>
+
+                    <p class="text-muted mb-1 font-13"><strong>Ext :</strong> <span class="ms-2">{{ perfil.ext }}</span>
+                    </p>
+
+                </div>
+
+            </div>
+        </div> <!-- end card -->
+
+    </div> <!-- end col-->
+
+    <div class="col-lg-8 col-xl-8">
+        <div class="card">
+            <div class="card-body">
+
+                <div class="tab-content">
+
+                    <form action="{% url 'users_app:perfil' request.user.id %}" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <h5 class="mb-4 text-uppercase"><i class="mdi mdi-account-circle me-1"></i> Datos Generales</h5>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="useremail" class="form-label">Nombres</label>
+                                    {{ form.names }}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="useremail" class="form-label">Apellidos</label>
+                                    {{ form.last_names }}
+                                </div>
+                            </div> <!-- end col -->
+                        </div> <!-- end row -->
+
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="useremail" class="form-label">Telefono</label>
+                                    {{ form.telefono }}
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="useremail" class="form-label">Extension</label>
+                                    {{ form.ext }}
+                                </div>
+                            </div>
+                        </div> <!-- end row -->
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="useremail" class="form-label">Avatar</label>
+                                {{ form.avatar }}
+                            </div>
+
+                            <div class="col-md-6 text-center">
+                                <div class="mb-12">
+                                    <a href="{% url 'users_app:update' %}"
+                                        class="btn btn-success rounded-pill waves-effect waves-light mt-2">
+                                        <i class="fe-unlock"></i> Cambiar Contraseña</a>
+
+                                </div>
+                            </div> <!-- end col -->
+                        </div> <!-- end row -->
+
+
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary rounded-pill waves-effect waves-light mt-2"><i
+                                    class="mdi mdi-content-save"></i> Guardar</button>
+                        </div>
+                    </form>
+                    <!-- end settings content-->
+
+                </div> <!-- end tab-content -->
+            </div>
+        </div> <!-- end card-->
+
+    </div> <!-- end col -->
+</div>
+{% endblock content %}

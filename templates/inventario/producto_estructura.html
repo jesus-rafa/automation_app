@@ -1,0 +1,141 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} Estructura de Productos {% endblock title %}
+
+{% block head %}
+<link href="{% static 'assets/libs/datatables.net-bs5/css/dataTables.bootstrap5.min.css' %}" rel="stylesheet" type="text/css" />
+<link href="{% static 'assets/libs/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css' %}" rel="stylesheet" type="text/css" />
+<link href="{% static 'assets/libs/datatables.net-buttons-bs5/css/buttons.bootstrap5.min.css' %}" rel="stylesheet" type="text/css" />
+{% endblock head %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box">
+            <div class="page-title-right">
+
+                <a id="btNew" href="{% url 'inventario_app:generar-estructura' %}" class="btn btn-primary rounded-pill" target="_self">
+                    <i class="fe-plus"></i> Gestionar Estructuras   
+                </a>
+
+            </div>
+            <h4 class="page-title">Estructura de Productos</h4>
+        </div>
+    </div>
+</div>
+ 
+<div class="row">
+    <div class="col-xl-12 mb-30">
+        <div class="card">
+            <div class="card-body">
+               
+                <div class="table-responsive">
+                    <table id="datatable1" class="table table-striped table-sm table-bordered p-0">
+                        <thead>
+                            <tr>
+                                <th>Producto</th>
+                                <th>Descripcion</th>
+                                <th>Numero Componentes</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for row in productos %}
+                            <tr>
+                                <td>{{ row.producto.nombre }}</td>
+                                <td>{{ row.producto.descripcion }}</td>
+                                <td>{{ row.sum_componentes }}</td>
+                                <td>
+                                    <div class="text-center">
+                                        <button id="btView" onclick="View_Modal('{% url 'inventario_app:ver-estructura' row.id %}')" 
+                                            title="Ver" tabindex="0" data-plugin="tippy" data-tippy-placement="bottom"
+                                            class="btn btn-soft btn-info rounded-pill btn-xs" target="_blank"><i class="fas fa-eye"></i>
+                                        </button>
+                                        <!-- <button id="btEdit" onclick="Update_Modal('{% url 'inventario_app:ver-estructura' row.id %}')" 
+                                            title="Editar" tabindex="0" data-plugin="tippy" data-tippy-placement="bottom"
+                                            class="btn btn-soft btn-warning rounded-pill btn-xs" target="_blank"><i class="fas fa-pen"></i>
+                                        </button> -->
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal View -->
+<div class="modal fade" id="mdView" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+</div>
+
+{% endblock content %}
+
+{% block extrajs %}
+<script src="{% static 'assets/libs/datatables.net/js/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'assets/libs/datatables.net-bs5/js/dataTables.bootstrap5.min.js' %}"></script>
+<script src="{% static 'assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js' %}"></script>
+<script src="{% static 'assets/libs/datatables.net-responsive-bs5/js/responsive.bootstrap5.min.js' %}"></script>
+<script src="{% static 'assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js' %}"></script>
+<script src="{% static 'assets/libs/datatables.net-buttons-bs5/js/buttons.bootstrap5.min.js' %}"></script>
+<script src="{% static 'assets/libs/datatables.net-buttons/js/buttons.html5.min.js' %}"></script>
+<script src="{% static 'assets/libs/datatables.net-buttons/js/buttons.flash.min.js' %}"></script>
+<script src="{% static 'assets/libs/datatables.net-buttons/js/buttons.print.min.js' %}"></script>
+<script src="{% static 'assets/js/pages/datatables.init.js' %}"></script>
+<script src="{% static 'assets/libs/bootstrap-datepicker/js/bootstrap-datepicker.min.js' %}"></script>
+<script src="{% static 'js/jquery.chained.min.js' %}"></script>
+<script src="{% static 'assets/libs/sweetalert2/sweetalert2.all.min.js' %}"></script>
+
+
+<script>
+    $(document).ready(function () {
+		$('.sp_date').hide();
+
+        $('.alert-success').fadeOut(6000);
+
+		var myTable1 = data_table('#datatable1');
+
+    });
+
+	
+    function View_Modal(myURL) {
+        $('#mdView').load(myURL, function () {
+            $(this).modal('show');
+        });
+    }
+
+    function data_table(myTable){
+
+        $(myTable).DataTable({
+            language: {
+                "decimal": "",
+                "emptyTable": "No hay información",
+                "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
+                "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
+                "infoFiltered": "(Filtrado de _MAX_ total entradas)",
+                "infoPostFix": "",
+                "thousands": ",",
+                "lengthMenu": "Mostrar _MENU_ Entradas",
+                "loadingRecords": "Cargando...",
+                "processing": "Procesando...",
+                "search": "Buscar:",
+                "zeroRecords": "Sin resultados encontrados",
+                paginate: {
+                    previous: "<i class='mdi mdi-chevron-left'>",
+                    next: "<i class='mdi mdi-chevron-right'>",
+                },
+            },
+            drawCallback: function () {
+                $(".dataTables_paginate > .pagination").addClass("pagination-rounded");
+            },
+        });
+    }
+
+</script>
+
+{% endblock extrajs %}
