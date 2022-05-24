@@ -44,7 +44,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         if self.names and self.last_names:
             return self.names + ' ' + self.last_names
         else:
-            return self.email
+            return self.username
 
     def get_initials(self):
         if self.names and self.last_names:

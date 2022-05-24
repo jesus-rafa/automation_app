@@ -3,9 +3,8 @@ from .base import *
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-# ALLOWED_HOSTS = ['*']
-#ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['*']
+#ALLOWED_HOSTS = ['localhost','127.0.0.1','dmingenieria.com.mx','157.245.135.198']
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
@@ -22,8 +21,8 @@ DATABASES = {
 }
 
 STATIC_URL = '/static/'
-STATIC_ROOT = '/static/'
 STATICFILES_DIRS = [BASE_DIR.child('static')]
+STATIC_ROOT = BASE_DIR.child('staticfiles')
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR.child('media')
@@ -52,14 +51,9 @@ CKEDITOR_CONFIGS = {
 
 # EMAIL SETTINGS
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-
-# EMAIL_HOST = 'smtp.hostinger.com'
-# EMAIT_PORT = 587
-# EMAIL_USE_SSL = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIT_PORT = 587
 EMAIL_USE_TLS = True
-
 EMAIL_HOST_USER = get_secret('EMAIL')
 EMAIL_HOST_PASSWORD = get_secret('PASS_EMAIL')
 

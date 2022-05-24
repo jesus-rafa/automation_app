@@ -51,7 +51,7 @@ class LoginUser(FormView):
 
     def form_valid(self, form):
         user = authenticate(
-            email=form.cleaned_data['username'],
+            username=form.cleaned_data['username'],
             password=form.cleaned_data['password']
         )
 

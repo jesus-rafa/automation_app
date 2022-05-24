@@ -22,11 +22,12 @@ class Cotizaciones(TemplateView):
         fecha = datetime.datetime.today()
 
         # registrar correos
-        Correos.objects.get_or_create(
-            correo=email,
-            nombre=contacto,
-            is_cotizacion=True
-        )
+        if not Correos.objects.filter(correo=email).exists():
+            Correos.objects.create(
+                correo=email,
+                nombre=contacto,
+                is_cotizacion=True
+            )
 
         # agregar logo en el email
         path = settings.MEDIA_ROOT + '/logo-white.png'
@@ -76,11 +77,12 @@ class Cotizar_Servicio(TemplateView):
         estado = request.POST['estado']
 
         # registrar correos
-        Correos.objects.get_or_create(
-            correo=email,
-            nombre=contacto,
-            is_cotizacion=True
-        )
+        if not Correos.objects.filter(correo=email).exists():
+            Correos.objects.create(
+                correo=email,
+                nombre=contacto,
+                is_cotizacion=True
+            )
 
         # agregar logo en el email
         path = settings.MEDIA_ROOT + '/logo-white.png'
@@ -130,11 +132,12 @@ class Cotizar_Producto(TemplateView):
         estado = request.POST['estado']
 
         # registrar correos
-        Correos.objects.get_or_create(
-            correo=email,
-            nombre=contacto,
-            is_cotizacion=True
-        )
+        if not Correos.objects.filter(correo=email).exists():
+            Correos.objects.create(
+                correo=email,
+                nombre=contacto,
+                is_cotizacion=True
+            )
 
         # agregar logo en el email
         path = settings.MEDIA_ROOT + '/logo-white.png'
