@@ -1,5 +1,6 @@
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.db import models
+from model_utils.models import TimeStampedModel
 
 from .managers import UserManager
 
@@ -62,6 +63,32 @@ class Correos(models.Model):
     class Meta:
         verbose_name = 'Correos'
         verbose_name_plural = 'Correos'
+        ordering = ['correo']
+
+    def __str__(self):
+        return self.correo
+
+
+class Enviar_Correos(TimeStampedModel):
+    correo = models.EmailField('Correo', max_length=200, blank=True)
+    nombre = models.CharField('Nombre', max_length=200, blank=True)
+    telefono = models.CharField('Telefono', max_length=10, blank=True, null=True)
+    nombre_empresa = models.CharField('Nombre Empresa', max_length=200, blank=True)
+    giro_empresa = models.CharField('Giro Empresa', max_length=400, blank=True)
+    estado = models.CharField('Estado', max_length=200, blank=True)
+    tipo = models.CharField('Tipo', max_length=200, blank=True)
+    cotizacion = models.CharField('Cotizacion', max_length=600, blank=True)
+    is_sent = models.BooleanField(default=False)
+    comentarios = models.CharField(
+        'Comentarios',
+        max_length=800,
+        null=True,
+        blank=True
+    )
+
+    class Meta:
+        verbose_name = 'Enviar_Correos'
+        verbose_name_plural = 'Enviar_Correos'
         ordering = ['correo']
 
     def __str__(self):

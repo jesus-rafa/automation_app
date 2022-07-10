@@ -3,11 +3,20 @@ import json
 from django.core.exceptions import ImproperlyConfigured
 from unipath import Path
 
+# Ejecutar crontab
+import os.path
+
 BASE_DIR = Path(__file__).ancestor(3)
 
-with open("secret.json") as f:
-    secret = json.loads(f.read())
+try:
+    with open("secret.json") as f:
+        secret = json.loads(f.read())
+except:
+    fdir = os.path.abspath(os.path.dirname(__file__))
+    full_path = os.path.join(fdir,'secret.json')
 
+    with open(full_path) as f:
+        secret = json.loads(f.read())
 
 def get_secret(secret_name, secrets=secret):
     try:
@@ -52,6 +61,7 @@ THIRD_PARTY_APPS = (
     'allauth.account',    # <-
     'allauth.socialaccount',    # <-
     'allauth.socialaccount.providers.google',    # <-
+    'django_crontab',
 )
 
 INSTALLED_APPS = DJANGO_APPS + LOCAL_APPS + THIRD_PARTY_APPS
@@ -60,6 +70,11 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',
 )
+
+# CRONTABS
+CRONJOBS = [
+    ('*/5 * * * *', 'applications.users.cron.generar_correos', '>> /webapps/env_automation_app/logs/crones.log')
+]
 
 SITE_ID = 2
 LOGIN_REDIRECT_URL = '/panel-cliente'

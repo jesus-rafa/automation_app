@@ -1,1 +1,3 @@
 secret.json
+**/migrations/**
+/media/

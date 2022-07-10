@@ -1,7 +1,7 @@
 import datetime
 from email.mime.image import MIMEImage
 
-from applications.users.models import Correos
+from applications.users.models import Correos, Enviar_Correos
 from django.conf import settings
 from django.contrib import messages
 from django.core.mail import EmailMultiAlternatives
@@ -21,38 +21,13 @@ class Cotizaciones(TemplateView):
         comentarios = request.POST['comentarios']
         fecha = datetime.datetime.today()
 
-        # registrar correos
-        if not Correos.objects.filter(correo=email).exists():
-            Correos.objects.create(
-                correo=email,
-                nombre=contacto,
-                is_cotizacion=True
-            )
-
-        # agregar logo en el email
-        path = settings.MEDIA_ROOT + '/logo-white.png'
-        logo_data = open(path, 'rb')
-        logo = MIMEImage(logo_data.read())
-        logo_data.close()
-        logo.add_header('Content-ID', '<logo>')
-
-        # Envio de correo
-        subject = 'Cotización: ' + contacto
-        text_content = ''
-        html_content = render_to_string(
-            'ventas/email/cotizacion.html',
-            {'fecha': fecha, 'contacto': contacto,
-                'email': email, 'comentarios': comentarios}
+        # registrar datos para envio de correos
+        Enviar_Correos.objects.create(
+            tipo='GENERAL',
+            correo=email,
+            nombre=contacto,
+            comentarios=comentarios
         )
-        msg = EmailMultiAlternatives(
-            subject,
-            text_content,
-            settings.EMAIL_HOST_USER,
-            [email]
-        )
-        msg.attach_alternative(html_content, "text/html")
-        msg.attach(logo)
-        msg.send()
 
         messages.success(
             self.request, 'Muchas Gracias, Revisaremos tu solicitud y te contactaremos a la brevedad, Excelente día.'
@@ -76,38 +51,18 @@ class Cotizar_Servicio(TemplateView):
         servicio = request.POST['servicio']
         estado = request.POST['estado']
 
-        # registrar correos
-        if not Correos.objects.filter(correo=email).exists():
-            Correos.objects.create(
-                correo=email,
-                nombre=contacto,
-                is_cotizacion=True
-            )
-
-        # agregar logo en el email
-        path = settings.MEDIA_ROOT + '/logo-white.png'
-        logo_data = open(path, 'rb')
-        logo = MIMEImage(logo_data.read())
-        logo_data.close()
-        logo.add_header('Content-ID', '<logo>')
-
-        # Envio de correo
-        subject = 'Cotización Servicio: ' + contacto
-        text_content = ''
-        html_content = render_to_string(
-            'ventas/email/cotizacion_servicio.html',
-            {'fecha': fecha, 'contacto': contacto, 'email': email, 'comentarios': comentarios, 'estado': estado,
-             'telefono': telefono, 'nombre_empresa': nombre_empresa, 'giro_empresa': giro_empresa, 'servicio': servicio}
+        # registrar datos para envio de correos
+        Enviar_Correos.objects.create(
+            tipo='SERVICIO',
+            correo=email,
+            nombre=contacto,
+            telefono=telefono.replace(' ',''),
+            nombre_empresa=nombre_empresa,
+            giro_empresa=giro_empresa,
+            cotizacion=servicio,
+            estado=estado,
+            comentarios=comentarios
         )
-        msg = EmailMultiAlternatives(
-            subject,
-            text_content,
-            settings.EMAIL_HOST_USER,
-            [email]
-        )
-        msg.attach_alternative(html_content, "text/html")
-        msg.attach(logo)
-        msg.send()
 
         messages.success(
             self.request, 'Muchas Gracias, Revisaremos tu solicitud y te contactaremos a la brevedad, Excelente día.'
@@ -131,38 +86,18 @@ class Cotizar_Producto(TemplateView):
         producto = request.POST['producto']
         estado = request.POST['estado']
 
-        # registrar correos
-        if not Correos.objects.filter(correo=email).exists():
-            Correos.objects.create(
-                correo=email,
-                nombre=contacto,
-                is_cotizacion=True
-            )
-
-        # agregar logo en el email
-        path = settings.MEDIA_ROOT + '/logo-white.png'
-        logo_data = open(path, 'rb')
-        logo = MIMEImage(logo_data.read())
-        logo_data.close()
-        logo.add_header('Content-ID', '<logo>')
-
-        # Envio de correo
-        subject = 'Cotización Producto: ' + contacto
-        text_content = ''
-        html_content = render_to_string(
-            'ventas/email/cotizacion_producto.html',
-            {'fecha': fecha, 'contacto': contacto, 'email': email, 'comentarios': comentarios, 'estado': estado,
-             'telefono': telefono, 'nombre_empresa': nombre_empresa, 'giro_empresa': giro_empresa, 'producto': producto}
+        # registrar datos para envio de correos
+        Enviar_Correos.objects.create(
+            tipo='PRODUCTO',
+            correo=email,
+            nombre=contacto,
+            telefono=telefono.replace(' ',''),
+            nombre_empresa=nombre_empresa,
+            giro_empresa=giro_empresa,
+            cotizacion=producto,
+            estado=estado,
+            comentarios=comentarios
         )
-        msg = EmailMultiAlternatives(
-            subject,
-            text_content,
-            settings.EMAIL_HOST_USER,
-            [email]
-        )
-        msg.attach_alternative(html_content, "text/html")
-        msg.attach(logo)
-        msg.send()
 
         messages.success(
             self.request, 'Muchas Gracias, Revisaremos tu solicitud y te contactaremos a la brevedad, Excelente día.'
